@@ -1,0 +1,46 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+#map {
+    width: 1200px;
+    height: 800px;
+    margin: 50px;
+    vertical-align: middle;
+}
+
+/* Optional: Makes the sample page fill the window. */
+
+html, body {
+    height: 100%;
+    margin: 10px;
+    padding: 0;
+}
+
+input {
+    width: 200px;
+    height: 10px;
+    margin-right: 20px;
+    padding: 10px;
+    padding-right: 20px;
+    border: 1px solid #979797;
+    border-radius: 15px;
+}
+
+#remove-shape, #save-member {
+    width: 300px;
+    padding: 10px;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #979797;
+    letter-spacing: 4px;
+    font-size: inherit;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.info {
+    margin: 5px;
+    font-size: 16px;
+    line-height: 1.5em;
+    display: block;
+}
