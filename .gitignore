@@ -9,3 +9,7 @@ node_modules/
 
 # debugger
 .vscode
+
+# test files
+test/
+server/routes/test_route.js

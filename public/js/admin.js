@@ -1,10 +1,27 @@
 const protocol = window.location.protocol;
 const domain = window.location.host;
-const myLatLng = { lat: 25.0472, lng: 121.5172 };
+let myLatLng = { "lat": 25.0409, "lng": 121.572 };
 
 function initMap() {
     let drawingManager;
     let selectedShape;
+
+    function getSelectedLocation() {
+        const cityName = document.querySelector('#city').value;
+        const townName = document.querySelector('#town').value;
+        const locationData = {
+            city: cityName,
+            town: townName
+        }
+
+        axios.post(`${protocol}//${domain}/admin/getSelectedLocation`, locationData)
+            .then((response) => {
+                let data = response.data.data
+                let coordinate = data.coordinate;
+                console.log(myLatLng);
+                console.log(coordinate);
+            })
+    }
 
     function clearSelection() {
         if (selectedShape) {
@@ -29,7 +46,7 @@ function initMap() {
         }
     }
 
-    function saveMember() {
+    function addFranchise() {
         const paths = selectedShape.getPath().getArray();
         const coordinates = paths.map(location => {
             let obj = {}
@@ -43,22 +60,14 @@ function initMap() {
             email: document.querySelector('.member.email').value,
             area: JSON.stringify(coordinates)
         }
-        axios.post(`${protocol}//${domain}/admin/createMember`, memberData)
+
+        console.log(memberData)
+        axios.post(`${protocol}//${domain}/admin/addFranchise`, memberData)
             .then((response) => {
                 alert('member added!')
                 let user = response.data.data
                 console.log(user);
             })
-    }
-
-    function getVillage(target) {
-        const data = target.feature.j;
-        const info = {
-            village: data.V_Name,
-            town: data.T_Name,
-            city: data.C_Name
-        }
-        console.log(info)
     }
 
     function initialise() {
@@ -92,7 +101,7 @@ function initMap() {
             map: map
         });
 
-        google.maps.event.addListener(drawingManager, 'overlaycomplete', function (e) {
+        google.maps.event.addListener(drawingManager, 'overlaycomplete', async function (e) {
             if (e.type != google.maps.drawing.OverlayType.MARKER) {
                 // Switch back to non-drawing mode after drawing a shape.
                 drawingManager.setDrawingMode(null);
@@ -101,31 +110,62 @@ function initMap() {
                     drawingControl: false
                 });
                 // mouses down on it.
-                var newShape = e.overlay;
+                let newShape = e.overlay;
                 newShape.type = e.type;
-                google.maps.event.addListener(newShape, 'click', function () {
+                google.maps.event.addListener(newShape, 'click', () => {
                     setSelection(newShape);
-                });
+                })
+
                 setSelection(newShape);
+
+                const paths = newShape.getPath().getArray();
+                const coordinates = paths.map(location => {
+                    let coordinates = [location.lng(), location.lat()]
+                    return coordinates
+                });
+                const locationData = {
+                    coordinates: coordinates
+                }
+
+                const locationPop = await axios.post(`${protocol}//${domain}/admin/getLocationPop`, locationData)
+                    .then((response) => {
+                        const data = response.data.data.locationPop
+                        return data
+                    })
+                const content = `
+                        <div id="content">
+                            <p><b>區域戶數：</b>${locationPop.household_no}</p><br>
+                            <p><b>區域總人口：</b>${locationPop.ppl_total}</p><br>
+                            <p><b>區域人口（男）：</b>${locationPop.ppl_total_m}</p><br>
+                            <p><b>區域人口（女）：</b>${locationPop.ppl_total_f}</p><br>
+                        </div>`
+                const infowindow = new google.maps.InfoWindow({
+                    content: content
+                });
+                const marker = new google.maps.Marker({
+                    map: map,
+                    position: { lat: 25.0409, lng: 121.572 }
+                });
+                infowindow.open(map, marker)
+                console.log(locationPop);
             }
         });
 
         // Load Geo Data
-        map.data.loadGeoJson(`${protocol}//${domain}/geo/village_bound.json`)
-        map.data.setStyle({
-            strokeOpacity: 0.5,
-            strokeWeight: 1,
-            fillOpacity: 0
-        });
-        map.data.addListener('click', getVillage);
+        // map.data.loadGeoJson(`${protocol}//${domain}/geo/village_bound.json`)
+        // map.data.setStyle({
+        //     strokeOpacity: 0.5,
+        //     strokeWeight: 1,
+        //     fillOpacity: 0
+        // });
 
         // Clear the current selection when the drawing mode is changed, or when the
         google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
         google.maps.event.addListener(map, 'click', clearSelection);
 
-
+        google.maps.event.addDomListener(document.getElementById('location-data'), 'click', getSelectedLocation);
         google.maps.event.addDomListener(document.getElementById('remove-shape'), 'click', deleteSelectedShape);
-        google.maps.event.addDomListener(document.getElementById('save-member'), 'click', saveMember);
+        google.maps.event.addDomListener(document.getElementById('save-member'), 'click', addFranchise);
     }
 
     google.maps.event.addDomListener(window, 'load', initialise);

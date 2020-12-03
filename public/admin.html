@@ -20,7 +20,6 @@
     <div class="info">
         <label for="auth">Authorisation</label>
         <select>
-            <option class="member auth" value="1">企業主</option>
             <option class="member auth" value="2">加盟主</option>
         </select>
     </div>
@@ -28,6 +27,15 @@
         <label for="email">Email</label>
         <input type="text" class="member email" value="">
     </div>
+    <div class="filter"></div>
+    <label for="location">縣市地區</label>
+    <select>
+        <option id="city" value="臺北市">臺北市</option>
+    </select>
+    <select>
+        <option id="town" value="信義區">信義區</option>
+    </select>
+    <button id="location-data">確認</button>
     <div id="map"></div>
     <br>
     <button id="remove-shape">取消選取</button>
