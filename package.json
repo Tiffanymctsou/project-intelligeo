@@ -18,10 +18,13 @@
   },
   "homepage": "https://github.com/Tiffanymctsou/project-intelligeo#readme",
   "dependencies": {
+    "@turf/center-of-mass": "^6.0.1",
+    "@turf/turf": "^5.1.6",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "puppeteer": "^1.7.0",
     "turf": "^3.0.14",

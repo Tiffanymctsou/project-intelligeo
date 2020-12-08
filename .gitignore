@@ -13,3 +13,11 @@ node_modules/
 # test files
 test/
 server/routes/test_route.js
+
+# assets
+public/admin/assets
+public/admin/icons
+public/admin/images
+public/admin/plugins
+public/admin/js/plugins-init
+public/admin/js/dashboard

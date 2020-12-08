@@ -4,7 +4,9 @@ const { wrapAsync } = require('../../util/util');
 const {
     getSelectedLocation,
     addFranchise,
-    getLocationPop
+    getLocationPop,
+    getFranchise,
+    getLocationSpot
 } = require('../controllers/admin_controller');
 
 router.route('/admin/getSelectedLocation')
@@ -15,6 +17,12 @@ router.route('/admin/addFranchise')
 
 router.route('/admin/getLocationPop')
     .post(wrapAsync(getLocationPop));
+
+router.route('/admin/getLocationSpot')
+    .post(wrapAsync(getLocationSpot));
+
+router.route('/admin/getFranchise')
+    .get(wrapAsync(getFranchise))
 
 
 module.exports = router;

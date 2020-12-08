@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Simple Map</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2IhCsBi4rwG6i62JBcV3QaUuCiCLP4Xs&libraries=drawing&callback=initMap"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/admin.css">
+  <script src="js/admin/select_area.js"></script>
+</head>
+
+<body>
+  <div class="info">
+    <label for="name">Name</label>
+    <input type="text" class="member name" value="" />
+  </div>
+  <div class="info">
+    <label for="auth">Authorisation</label>
+    <select>
+      <option class="member auth" value="2">加盟主</option>
+    </select>
+  </div>
+  <div class="info">
+    <label for="email">Email</label>
+    <input type="text" class="member email" value="" />
+  </div>
+  <div class="filter"></div>
+  <label for="location">縣市地區</label>
+  <select>
+    <option id="city" value="臺北市">臺北市</option>
+  </select>
+  <select>
+    <option id="town" value="信義區">信義區</option>
+  </select>
+  <button id="location-data">確認</button>
+  <div id="map"></div>
+  <br />
+  <button id="remove-shape" onclick="infowindow.close()">取消選取</button>
+  <button id="save-member">新增加盟主</button>
+</body>
+
+</html>

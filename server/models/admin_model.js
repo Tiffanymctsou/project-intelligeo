@@ -52,7 +52,7 @@ const getSelectedLocation = async (city, town) => {
 
 }
 
-const addFranchise = async (name, auth, email, area) => {
+const addFranchise = async (franchise_id, fullname, city, email, phone, address, location, area, join_date) => {
     try {
         await transaction();
 
@@ -62,28 +62,59 @@ const addFranchise = async (name, auth, email, area) => {
         //     return { error: 'Email Already Exists' };
         // }
 
-        const user = {
-            name: name,
-            auth: auth,
-            email: email,
-            area: area
+        const franchise = {
+            franchise_id,
+            fullname,
+            city,
+            email,
+            phone,
+            address,
+            location,
+            area,
+            join_date
         }
 
         const sqlQuery = 'INSERT INTO franchise SET ?';
-        const result = await query(sqlQuery, user);
-        user.id = result.insertId;
+        await query(sqlQuery, franchise);
 
         await commit();
-        return { user };
+        return { msg: 'Franchise inserted!' };
     } catch (error) {
         await rollback();
         return { error };
     }
 };
 
+const getFranchise = async () => {
+    try {
+        await transaction();
+
+        const sqlQuery = 'SELECT franchise_id, fullname, city, email, phone, address, join_date FROM franchise;'
+        const franchises = await query(sqlQuery);
+        return { franchises }
+    } catch (error) {
+        await rollback();
+        return { error };
+    }
+}
+
+const getMarker = async (keyword) => {
+    try {
+        await transaction();
+        const sqlQuery = `SELECT path FROM assets WHERE keyword = '${keyword}'`
+        const marker = await query(sqlQuery);
+        return { marker };
+    } catch (error) {
+        await rollback();
+        return { error };
+    }
+}
+
 module.exports = {
     getSelectedLocation,
     addFranchise,
     getVillageInfo,
-    getVillagePop
+    getVillagePop,
+    getFranchise,
+    getMarker
 };
