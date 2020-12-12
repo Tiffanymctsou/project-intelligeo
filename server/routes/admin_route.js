@@ -6,7 +6,8 @@ const {
     addFranchise,
     getLocationPop,
     getFranchise,
-    getLocationSpot
+    getLocationSpot,
+    getFranchiseArea
 } = require('../controllers/admin_controller');
 
 router.route('/admin/getSelectedLocation')
@@ -23,6 +24,9 @@ router.route('/admin/getLocationSpot')
 
 router.route('/admin/getFranchise')
     .get(wrapAsync(getFranchise))
+
+router.route('/admin/getFranchiseArea')
+    .get(wrapAsync(getFranchiseArea))
 
 
 module.exports = router;

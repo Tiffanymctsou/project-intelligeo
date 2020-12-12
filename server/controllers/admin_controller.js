@@ -6,13 +6,13 @@ const axios = require('axios');
 const moment = require('moment');
 const { GOOGLE_KEY } = process.env;
 
-
 const getLocationPop = async (req, res) => {
     const protocol = req.get('protocol');
     const domain = req.get('host');
     const { coordinates } = req.body;
     const turfCoordinates = await alterCoordinates(coordinates);
     const selectedPoly = turf.polygon([turfCoordinates])
+    const spotCentre = turf.centroid(selectedPoly).geometry.coordinates;
 
     const villageCodes = [];
     const intersections = [];
@@ -69,67 +69,70 @@ const getLocationPop = async (req, res) => {
 
     res.status(200).send({
         data: {
-            locationPop
+            locationPop,
+            spotCentre
         }
     })
 }
 
 const getLocationSpot = async (req, res) => {
-    const protocol = req.get('protocol');
-    const domain = req.get('host');
     const { coordinates, poi } = req.body;
-    const turfCoordinates = await alterCoordinates(coordinates)
-    const spot = turf.polygon([turfCoordinates])
-    const spotCentre = turf.centroid(spot).geometry.coordinates;
-    // Get furthest point distance
-    let maxDistance = 0;
-    coordinates.forEach(point => {
-        let distance = turf.distance(turf.point(spotCentre), turf.point(point)) // default unit: kilometers 
-        if (distance > maxDistance) {
-            maxDistance = distance;
-        }
-    })
-    const spotData = [];
-    if (poi.length !== 0) {
-        for (let i = 0; i < poi.length; i++) {
-            const keyword = poi[i];
-            const radius = Math.ceil(maxDistance * 1000);
-            const marker = await Admin.getMarker(keyword);
-            let apiUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${spotCentre[1]},${spotCentre[0]}&radius=${radius}&keyword='${keyword}'&key=${GOOGLE_KEY}`
-            await axios.get(`${encodeURI(apiUrl)}`)
-                .then((response) => {
-                    const result = response.data.results;
-                    return result;
-                })
-                .then((result) => {
-                    const spot = [];
-                    for (let j = 0; j < result.length; j++) {
-                        const data = result[j];
-                        const spotInfo = {
-                            location: data.geometry.location,
-                            icon: `${domain}/${marker.marker[0].path}`
-                        }
-                        spot.push(spotInfo);
-                    }
-                    const spotTotal = {
-                        keyword: keyword,
-                        spotCount: result.length
-                    }
-                    const spots = {
-                        info: spot,
-                        total: spotTotal
-                    }
-                    spotData.push(spots);
-                })
-        }
+    const south = coordinates.sw.lat
+    const west = coordinates.sw.lng
+    const north = coordinates.ne.lat
+    const east = coordinates.ne.lng
+    // poi
+    const spots = []
+    for (let i = 0; i < poi.length; i++) {
+        const spot = await Admin.getMarker(poi[i], south, west, north, east)
+        const spotInfo = []
+        spot.marker.forEach(point => {
+            const info = {
+                poi: poi[i],
+                icon: point.icon_path,
+                location: {
+                    lat: point.lat,
+                    lng: point.lng
+                }
+            }
+            spotInfo.push(info)
+        })
+        spots.push(spotInfo)
     }
+
     res.status(200).send({
         data: {
-            spotCentre: spotCentre,
-            spotData: spotData
+            spots
         }
     })
 }
+
+const getFranchiseArea = async (req, res) => {
+    const franchises = await Admin.getFranchiseArea()
+    const franchiseArea = []
+    for (let i = 0; i < franchises.length; i++) {
+        const franchise = {
+            name: franchises[i].fullname,
+            area: []
+        }
+        const area = await alterCoordinates(JSON.parse(franchises[i].area))
+        area.forEach(coordinate => {
+            const latLng = {
+                lat: coordinate[1],
+                lng: coordinate[0]
+            }
+            franchise.area.push(latLng)
+        })
+        franchiseArea.push(franchise)
+    }
+
+    res.status(200).send({
+        data: {
+            franchiseArea
+        }
+    })
+}
+
 
 async function alterCoordinates(coordinates) {
     coordinates.push(coordinates[0]);
@@ -213,5 +216,6 @@ module.exports = {
     addFranchise,
     getLocationPop,
     getFranchise,
-    getLocationSpot
+    getLocationSpot,
+    getFranchiseArea
 }

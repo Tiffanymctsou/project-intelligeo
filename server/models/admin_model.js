@@ -1,22 +1,6 @@
 const { villages } = require('../../test/village_data');
 const { transaction, commit, rollback, query } = require('./mysqlcon');
 
-// to be altered!!!!!
-const getVillageInfo = async (city, town) => {
-    try {
-        await transaction();
-        const townCode = await query(`SELECT town_code FROM city_town WHERE city = '${city}' AND town = '${town}'`)
-        const villages = await query(`SELECT village, village_code, coordinates FROM town_village WHERE town_code = ${townCode[0].town_code}`)
-
-        return {
-            villages
-        };
-    } catch (error) {
-        await rollback();
-        return { error };
-    }
-}
-
 const getVillagePop = async (villageCodes) => {
     try {
         await transaction();
@@ -35,7 +19,6 @@ const getVillagePop = async (villageCodes) => {
         return { error };
     }
 }
-
 
 const getSelectedLocation = async (city, town) => {
     try {
@@ -98,12 +81,24 @@ const getFranchise = async () => {
     }
 }
 
-const getMarker = async (keyword) => {
+const getMarker = async (poi, south, west, north, east) => {
     try {
         await transaction();
-        const sqlQuery = `SELECT path FROM assets WHERE keyword = '${keyword}'`
+        const sqlQuery = `SELECT icon_path, lat, lng FROM ${poi} WHERE lat BETWEEN ${south} AND ${north} AND lng BETWEEN ${west} AND ${east}`
         const marker = await query(sqlQuery);
         return { marker };
+    } catch (error) {
+        await rollback();
+        return { error };
+    }
+}
+
+const getFranchiseArea = async () => {
+    try {
+        await transaction();
+        const sqlQuery = `SELECT fullname, area FROM franchise`
+        const franchises = await query(sqlQuery)
+        return franchises
     } catch (error) {
         await rollback();
         return { error };
@@ -113,8 +108,8 @@ const getMarker = async (keyword) => {
 module.exports = {
     getSelectedLocation,
     addFranchise,
-    getVillageInfo,
     getVillagePop,
     getFranchise,
-    getMarker
+    getMarker,
+    getFranchiseArea
 };
