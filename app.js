@@ -13,8 +13,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/',
     [
         require('./server/routes/admin_route'),
-        require('./server/routes/franchise_route'),
-        require('./server/routes/test_route')
+        require('./server/routes/franchise_route')
     ]
 )
 
