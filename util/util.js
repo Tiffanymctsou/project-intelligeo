@@ -1,4 +1,6 @@
 require('dotenv').config();
+const nodemailer = require('nodemailer');
+
 
 const wrapAsync = (fn) => {
     return function (req, res, next) {
@@ -8,6 +10,15 @@ const wrapAsync = (fn) => {
     };
 };
 
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: process.env.EMAIL_ACCOUNT,
+        pass: process.env.EMAIL_PWD,
+    },
+});
+
 module.exports = {
-    wrapAsync
+    wrapAsync,
+    transporter
 }

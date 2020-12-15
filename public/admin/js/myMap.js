@@ -5,6 +5,7 @@ async function getTowns(index) {
     const city = document.getElementById('map_city')
     townInfo = []
     city[0].disabled = true;
+
     const selectedCity = city[index].value
     const towns = await app.readjson('./geo/city_town.json')
     towns.forEach(town => {
@@ -23,7 +24,7 @@ async function getTowns(index) {
     })
     // show towns
     const townSelectTag = document.getElementById('map_town');
-    let options = '<optgroup label="行政區"></optgroup>'
+    let options = `<option>行政區</option>`
     townInfo.forEach(town => {
         options += `<option value="${town.town_code}">${town.town_name}</option>`
     })
@@ -32,6 +33,7 @@ async function getTowns(index) {
 async function getCentre(index) {
     const town = document.getElementById('map_town')
     const selectedTown = town[index].value
+    town[0].disabled = true;
     let centre;
     townInfo.forEach(town => {
         if (town.town_code == selectedTown) {

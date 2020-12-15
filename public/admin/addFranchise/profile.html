@@ -215,40 +215,33 @@
             </div>
         </div>
         <!-- Header end -->
-
         <!-- Sidebar start -->
         <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label"></li>
+                    <!-- <li class="nav-label">DASHBOARD</li> -->
                     <li>
                         <a href="/admin" aria-expanded="false">
                             <i class="icon-speedometer menu-icon"></i><span class="nav-text">儀表板</span>
                         </a>
                     </li>
+                    <!-- <li class="nav-label">ADMIN</li> -->
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">管理加盟主</span>
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">管理加盟</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="../allFranchise.html">所有加盟主</a></li>
-                            <li><a href="/admin/addFranchise/location.html">新增加盟主</a></li>
+                            <li><a href="/admin/allFranchise.html">所有加盟主</a></li>
+                            <li><a href="/admin/myMap.html">我的市場地圖</a></li>
                         </ul>
                     </li>
+                    <!-- <li class="nav-label">TOOLS</li> -->
                     <li>
-                        <a href="./email-inbox.html" aria-expanded="false">
+                        <a href="/admin/email-inbox.html" aria-expanded="false">
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">信箱</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">地圖</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="../myMap.html">我的市場地圖</a></li>
-                            <li><a href="#">市場拓點分析</a></li>
-                        </ul>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -370,7 +363,7 @@
                         <!-- <div class="card"> -->
                         <div class="card-body">
                             <button class="btn btn-outline-primary"
-                                onclick="window.location.replace('/admin/addFranchise/location.html');">Previous</button>
+                                onclick="window.location.replace('/admin/myMap.html');">Previous</button>
                             <button class="btn btn-primary" style="float:right;"
                                 onclick="addFranchise()">Submit</button>
                         </div>

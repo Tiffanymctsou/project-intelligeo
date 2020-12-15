@@ -1,10 +1,13 @@
 require('dotenv').config();
-// const validator = require('validator');
+const validator = require('validator');
 const Admin = require('../models/admin_model');
 const turf = require('turf');
 const axios = require('axios');
 const moment = require('moment');
-const { GOOGLE_KEY } = process.env;
+const util = require('../../util/util');
+const bcrypt = require('bcrypt');
+const inLineCss = require('nodemailer-juice');
+const salt = parseInt(process.env.BCRYPT_SALT);
 
 const getLocationPop = async (req, res) => {
     const protocol = req.get('protocol');
@@ -133,7 +136,6 @@ const getFranchiseArea = async (req, res) => {
     })
 }
 
-
 async function alterCoordinates(coordinates) {
     coordinates.push(coordinates[0]);
     return coordinates;
@@ -159,8 +161,9 @@ const getSelectedLocation = async (req, res) => {
 }
 
 const addFranchise = async (req, res) => {
-    console.log(req.body)
-    let { franchise_id,
+    const protocol = req.protocol;
+    const domain = req.get('host');
+    const { franchise_id,
         franchise_fullname,
         franchise_city,
         franchise_email,
@@ -181,24 +184,86 @@ const addFranchise = async (req, res) => {
 
     // name = validator.escape(name);
     const join_date = moment().format('YYYY-MM-DD');
-    console.log(join_date)
     const result = await Admin.addFranchise(franchise_id, franchise_fullname, franchise_city, franchise_email, franchise_phone, franchise_address, franchise_location, coordinates, join_date);
+    const user = await Admin.createAccount(franchise_id, franchise_email)
 
     if (result.error) {
         res.status(403).send({ error: result.error });
         return;
     }
 
-    const { msg } = result;
+    if (user.error) {
+        res.status(403).send({ error: user.error });
+        return;
+    }
 
-
+    const mailOptions = {
+        from: 'intelligeo TW <no-reply@gmail.com>',
+        to: `${franchise_fullname} <${franchise_email}>`,
+        cc: 'intelligeo.tw@gmail.com',
+        subject: '完成您的密碼設置',
+        html: await sendMailContent(franchise_fullname, protocol, domain, franchise_id, franchise_email)
+    };
+    util.transporter.use('compile', inLineCss());
+    if (validator.isEmail(franchise_email)) {
+        util.transporter.sendMail(mailOptions, function (err, info) {
+            if (err) {
+                return console.log(err)
+            }
+            return console.log('Email sent: ' + info.response);
+        });
+    }
     res.status(200).send({
-        data: {
-            msg
-        }
-    })
-
+        data: { msg: 'Please check your email!' }
+    });
 }
+
+const sendMailContent = async (name, protocol, domain, franchise_id, franchise_email) => {
+    const hashed_email = bcrypt.hashSync(franchise_email, salt)
+    return `
+    <html>
+    <head>
+    <style>
+    .content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+      }
+      
+      .content-body {
+        flex: 1 1 auto;
+        padding: 1.25rem;
+        /* display: block;
+          overflow: auto; */
+      }
+      
+      .content .content-body {
+        padding: 1.88rem 1.81rem;
+      }
+    </style>
+    </head>
+    
+    <body>
+      <div class="content">
+        <div class="content-body">
+          <h3>嗨， ${name}</h3>
+          <p>歡迎您的加入！</p>
+          <p>請您點擊以下連結設置您的密碼：</p>
+          <p class="strong">${protocol}://${domain}/franchise/setting.html?id=${franchise_id}&uid=${hashed_email}</p>
+    
+          <h6 class="admin">※此信件為系統發出信件，請勿直接回覆。若您有任何問題，請洽 Intelligeo 客服中心，謝謝！</h6>
+        </div>
+    </body>
+</html>
+    `;
+};
+
 
 const getFranchise = async (req, res) => {
     const result = await Admin.getFranchise();

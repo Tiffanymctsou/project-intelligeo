@@ -1,4 +1,3 @@
-const { villages } = require('../../test/village_data');
 const { transaction, commit, rollback, query } = require('./mysqlcon');
 
 const getVillagePop = async (villageCodes) => {
@@ -61,12 +60,38 @@ const addFranchise = async (franchise_id, fullname, city, email, phone, address,
         await query(sqlQuery, franchise);
 
         await commit();
-        return { msg: 'Franchise inserted!' };
+        return { msg: 'Franchise added!' };
     } catch (error) {
         await rollback();
         return { error };
     }
 };
+
+const createAccount = async (franchise_id, email) => {
+    try {
+        await transaction();
+
+        // const emails = await query('SELECT email FROM user WHERE email = ? FOR UPDATE', [email]);
+        // if (emails.length > 0) {
+        //     await commit();
+        //     return { error: 'Email Already Exists' };
+        // }
+
+        const user = {
+            account: franchise_id,
+            email: email
+        }
+
+        const sqlQuery = 'INSERT INTO user SET ?';
+        await query(sqlQuery, user);
+
+        await commit();
+        return { msg: 'User added!' };
+    } catch (error) {
+        await rollback();
+        return { error };
+    }
+}
 
 const getFranchise = async () => {
     try {
@@ -111,5 +136,6 @@ module.exports = {
     getVillagePop,
     getFranchise,
     getMarker,
-    getFranchiseArea
+    getFranchiseArea,
+    createAccount
 };
