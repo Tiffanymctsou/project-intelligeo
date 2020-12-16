@@ -11,6 +11,7 @@ if (!id || !uid) {
         params: { id: id, uid: uid }
     })
         .then((response) => {
+            // ADD ALERT TO SET PASSWORD
             console.log(response)
         })
         .catch((err) => {

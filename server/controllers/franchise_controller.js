@@ -33,8 +33,13 @@ const nativeLogin = async (req, res) => {
         return
     } res.status(200).send({ data: result })
 }
+
+const verifyToken = async (req, res) => {
+    // const token = req.header
+}
 module.exports = {
     verifySetting,
     setAccount,
-    nativeLogin
+    nativeLogin,
+    verifyToken
 }

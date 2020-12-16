@@ -8,19 +8,17 @@ const util = require('../../util/util');
 const bcrypt = require('bcrypt');
 const inLineCss = require('nodemailer-juice');
 const salt = parseInt(process.env.BCRYPT_SALT);
+const { S3_CDN } = process.env
 
 const getLocationPop = async (req, res) => {
-    const protocol = req.get('protocol');
-    const domain = req.get('host');
     const { coordinates } = req.body;
     const turfCoordinates = await alterCoordinates(coordinates);
     const selectedPoly = turf.polygon([turfCoordinates])
     const spotCentre = turf.centroid(selectedPoly).geometry.coordinates;
-
     const villageCodes = [];
     const intersections = [];
 
-    await axios.get(`http://${domain}/admin/geo/village_bound.json`)
+    await axios.get(`https://${S3_CDN}/geo/village_bound.json`)
         .then((response) => {
             const data = response.data.features
             data.forEach(village => {
