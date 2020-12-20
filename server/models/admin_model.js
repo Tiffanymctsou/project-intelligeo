@@ -130,6 +130,22 @@ const getFranchiseArea = async () => {
     }
 }
 
+const getReportStatus = async (today) => {
+    try {
+        await transaction();
+        const sqlQuery = `SELECT o.id, o.franchise_id, f.fullname, o.open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time, TIME_FORMAT(close_time, '%H:%i') AS close_time, o.open_status, o.report_status, TIME_FORMAT(report_time, '%H:%i') AS report_time FROM open_log AS o, franchise AS f 
+        WHERE o.franchise_id = f.franchise_id AND o.report_date = ?
+        ORDER BY open_time;`;
+        const statusToday = await query(sqlQuery, [today])
+        console.log(statusToday)
+        await commit();
+        return statusToday
+    } catch (error) {
+        await rollback();
+        return { error };
+    }
+}
+
 module.exports = {
     getSelectedLocation,
     addFranchise,
@@ -137,5 +153,6 @@ module.exports = {
     getFranchise,
     getMarker,
     getFranchiseArea,
-    createAccount
+    createAccount,
+    getReportStatus
 };

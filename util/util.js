@@ -18,7 +18,12 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+const money = new Intl.NumberFormat('zh-TW', {
+    minimumFractionDigits: 0
+})
+
 module.exports = {
     wrapAsync,
-    transporter
+    transporter,
+    money
 }

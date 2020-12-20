@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>INTELLIGEO</title>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/lib.js"></script>
+    <script src="./js/overview.js" type="module"></script>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Pignose Calender -->
@@ -14,7 +19,10 @@
     <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/myStyle.css">
+    <link rel="stylesheet" href="../franchise/css/myStyle.css">
+    <link rel="stylesheet" href="../franchise/css/util.css">
 
 </head>
 
@@ -36,9 +44,9 @@
         <!-- Nav header start -->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                <a href="/admin">
+                    <b class="logo-abbr"><img src="/images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
                         <h2 class="text-white">INTELLIGEO</h2>
                         <!-- <img src="images/logo-text.png" alt=""> -->
@@ -89,7 +97,7 @@
                                     <ul>
                                         <li class="notification-unread">
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg"
+                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/1.jpg"
                                                     alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Saiful Islam</div>
@@ -101,7 +109,7 @@
                                         </li>
                                         <li class="notification-unread">
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/2.jpg"
+                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/2.jpg"
                                                     alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Adam Smith</div>
@@ -112,7 +120,7 @@
                                         </li>
                                         <li>
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/3.jpg"
+                                                <img class="float-left mr-3 avatar-img" src="/images/avatar/3.jpg"
                                                     alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Barak Obama</div>
@@ -124,7 +132,7 @@
                                         </li>
                                         <li>
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/4.jpg"
+                                                <img class="float-left mr-3 avatar-img" src="/images/avatar/4.jpg"
                                                     alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Hilari Clinton</div>
@@ -262,9 +270,10 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">當日營業額</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">$ 1,565</h2>
+                                    <h2 class="text-white">$ <span id="daily-sales"></span>
+                                    </h2>
                                 </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span> -->
                             </div>
                         </div>
                     </div>
@@ -273,9 +282,9 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">當月營業額</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">$ 5,765</h2>
+                                    <h2 class="text-white">$ <span id="monthly-sales"></span></h2>
                                 </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span> -->
                             </div>
                         </div>
                     </div>
@@ -284,9 +293,9 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">當月新增加盟主</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">5</h2>
+                                    <h2 class="text-white"><span id="monthly-franchise"></span></h2>
                                 </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span> -->
                             </div>
                         </div>
                     </div>
@@ -295,9 +304,9 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">加盟主總數</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">97</h2>
+                                    <h2 class="text-white"><span id="total-franchise"></span></h2>
                                 </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span> -->
                             </div>
                         </div>
                     </div>
@@ -337,11 +346,11 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="card-title">
-                                    <h4>即時狀態</h4>
+                                <div id="franchise-status">
+                                    <h4 class="mb-1">即時狀態</h4>
                                 </div>
                                 <div class="active-member">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" id="dashboard-status-table">
                                         <table class="table table-xs mb-0">
                                             <thead>
                                                 <tr>
@@ -349,41 +358,12 @@
                                                     <th>加盟主</th>
                                                     <th>營業地址</th>
                                                     <th>營業狀態</th>
-                                                    <th>營業開始時間</th>
+                                                    <th>營業時間</th>
                                                     <th>營收回報</th>
                                                     <th>營收回報時間</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>N001</td>
-                                                    <td>張小花</td>
-                                                    <td>臺北市松山區啾啾路一段138號</td>
-                                                    <td><span class="badge badge-success px-2">營業中</span></td>
-                                                    <td><span class="m-0 pl-3">11:00</span></td>
-                                                    <td><span class="badge badge-success px-2"
-                                                            style="background-color: #545454;">尚未回報</span></td>
-                                                    <td><span class="m-0 pl-3">-</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>N002</td>
-                                                    <td>朱阿青</td>
-                                                    <td>-</td>
-                                                    <td><span class="badge badge-danger px-2">今日休息</span></td>
-                                                    <td><span class="m-0 pl-3">-</span></td>
-                                                    <td><span class="badge badge-success px-2"
-                                                            style="background-color: #545454;">-</span></td>
-                                                    <td><span class="m-0 pl-3">-</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>N003</td>
-                                                    <td>陳心心</td>
-                                                    <td>臺北市南港區圈圈路叉叉街76號</td>
-                                                    <td><span class="badge badge-danger px-2">今日結束</span></td>
-                                                    <td><span class="m-0 pl-3">08:00</span></td>
-                                                    <td><span class="badge badge-success px-2">已回報</span></td>
-                                                    <td><span class="m-0 pl-3">13:30</span></td>
-                                                </tr>
+                                            <tbody id="status-table">
                                             </tbody>
                                         </table>
                                     </div>
@@ -401,34 +381,35 @@
                 </div>
                 <!-- Footer end -->
             </div>
-            <!-- Main wrapper end -->
+        </div>
+        <!-- Main wrapper end -->
 
-            <!-- Script -->
-            <script src="plugins/common/common.min.js"></script>
-            <script src="js/custom.min.js"></script>
-            <script src="js/settings.js"></script>
-            <script src="js/gleek.js"></script>
-            <script src="js/styleSwitcher.js"></script>
+        <!-- Script -->
+        <script src="js/index.js"></script>
+        <script src="plugins/common/common.min.js"></script>
+        <script src="js/custom.min.js"></script>
+        <script src="js/settings.js"></script>
+        <script src="js/gleek.js"></script>
+        <script src="js/styleSwitcher.js"></script>
 
-            <!-- Chartjs -->
-            <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
-            <!-- Circle progress -->
-            <script src="./plugins/circle-progress/circle-progress.min.js"></script>
-            <!-- Datamap -->
-            <script src="./plugins/d3v3/index.js"></script>
-            <script src="./plugins/topojson/topojson.min.js"></script>
-            <script src="./plugins/datamaps/datamaps.world.min.js"></script>
-            <!-- Morrisjs -->
-            <script src="./plugins/raphael/raphael.min.js"></script>
-            <script src="./plugins/morris/morris.min.js"></script>
-            <!-- Pignose Calender -->
-            <script src="./plugins/moment/moment.min.js"></script>
-            <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-            <!-- ChartistJS -->
-            <script src="./plugins/chartist/js/chartist.min.js"></script>
-            <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-
-            <script src="./js/dashboard/dashboard-1.js"></script>
+        <!-- Chartjs -->
+        <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+        <!-- Circle progress -->
+        <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+        <!-- Datamap -->
+        <script src="./plugins/d3v3/index.js"></script>
+        <script src="./plugins/topojson/topojson.min.js"></script>
+        <script src="./plugins/datamaps/datamaps.world.min.js"></script>
+        <!-- Morrisjs -->
+        <script src="./plugins/raphael/raphael.min.js"></script>
+        <script src="./plugins/morris/morris.min.js"></script>
+        <!-- Pignose Calender -->
+        <script src="./plugins/moment/moment.min.js"></script>
+        <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+        <!-- ChartistJS -->
+        <script src="./plugins/chartist/js/chartist.min.js"></script>
+        <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+        <script src="./js/dashboard/dashboard-1.js"></script>
 
 </body>
 

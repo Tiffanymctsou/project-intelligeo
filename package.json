@@ -31,6 +31,7 @@
     "nodemailer": "^6.4.17",
     "nodemailer-juice": "^1.0.1",
     "puppeteer": "^1.7.0",
+    "socket.io": "^3.0.4",
     "turf": "^3.0.14",
     "util": "^0.12.3",
     "validator": "^13.1.17"

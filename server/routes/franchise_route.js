@@ -5,7 +5,11 @@ const {
     verifySetting,
     setAccount,
     nativeLogin,
-    verifyToken
+    verifyToken,
+    getOpenStatus,
+    updateOpenStatus,
+    getLocationRecord,
+    reportSales
 } = require('../controllers/franchise_controller');
 
 router.route('/franchise/verifySetting')
@@ -17,7 +21,16 @@ router.route('/franchise/setAccount')
 router.route('/franchise/nativeLogin')
     .post(wrapAsync(nativeLogin));
 
-router.route('/franchise/verifyToken')
-    .get(verifyToken)
+router.route('/franchise/getLocationRecord')
+    .get(verifyToken, wrapAsync(getLocationRecord))
+
+router.route('/franchise/getOpenStatus')
+    .get(verifyToken, wrapAsync(getOpenStatus))
+
+router.route('/franchise/updateOpenStatus')
+    .post(verifyToken, wrapAsync(updateOpenStatus))
+
+router.route('/franchise/reportSales')
+    .post(verifyToken, wrapAsync(reportSales))
 
 module.exports = router;

@@ -274,11 +274,18 @@ const getFranchise = async (req, res) => {
     })
 }
 
+const getReportStatus = async (req, res) => {
+    const today = moment().format('YYYY-MM-DD');
+    const result = await Admin.getReportStatus(today);
+    res.status(200).send(result);
+}
+
 module.exports = {
     getSelectedLocation,
     addFranchise,
     getLocationPop,
     getFranchise,
     getLocationSpot,
-    getFranchiseArea
+    getFranchiseArea,
+    getReportStatus
 }

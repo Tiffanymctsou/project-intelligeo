@@ -1,9 +1,12 @@
-// require('dotenv').config();
-
+require('dotenv').config();
 // express initialisation
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const socketcon = require('./server/socket/socketcon');
+io.on('connection', socketcon)
 
 app.use(express.static('public'));
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
@@ -17,6 +20,6 @@ app.use('/',
     ]
 )
 
-app.listen('3000', () =>
+server.listen('3000', () =>
     console.log('Oh yes! Server is running!')
 );

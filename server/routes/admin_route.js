@@ -10,6 +10,11 @@ const {
     getFranchiseArea
 } = require('../controllers/admin_controller');
 
+const {
+    getReportStatus,
+    getOverviewData
+} = require('../controllers/dashboard_controller');
+
 router.route('/admin/getSelectedLocation')
     .post(wrapAsync(getSelectedLocation));
 
@@ -27,6 +32,12 @@ router.route('/admin/getFranchise')
 
 router.route('/admin/getFranchiseArea')
     .get(wrapAsync(getFranchiseArea))
+
+router.route('/admin/getReportStatus')
+    .get(wrapAsync(getReportStatus))
+
+router.route('/admin/getOverviewData')
+    .get(wrapAsync(getOverviewData))
 
 
 module.exports = router;
