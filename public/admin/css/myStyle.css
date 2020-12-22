@@ -88,7 +88,7 @@ input:checked+.slider:before {
   padding: 1.88rem 1.81rem;
 }
 
-.card-body {
+#poi-card {
   margin-top: 20px;
 }
 
