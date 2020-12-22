@@ -17,6 +17,10 @@ const socketcon = (socket) => {
         socket.broadcast.emit('report-sales', salesInfo)
         console.log(salesInfo)
     })
+    socket.on('add-franchise', (franchiseCount) => {
+        socket.broadcast.emit('add-franchise', franchiseCount)
+        console.log(franchiseCount)
+    })
 }
 
 module.exports = socketcon

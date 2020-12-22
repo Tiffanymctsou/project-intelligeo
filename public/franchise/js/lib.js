@@ -30,6 +30,17 @@ function successReport() {
         timer: 1500
     })
 }
+
+function tryAgain() {
+    Swal.fire({
+        icon: 'error',
+        title: '糟糕！',
+        text: '好像密碼出錯了！請再試一次！',
+        showConfirmButton: true,
+        confirmButtonText: '確認'
+    })
+    return
+}
 // loading pages
 function domCreate(element) {
     return document.createElement(element);

@@ -7,5 +7,5 @@ const domain = window.location.host;
 
 function login() {
     event.preventDefault();
-    window.location.replace(`${protocol}//${domain}/admin`)
+    window.location.replace(`${protocol}//${domain}/admin/myMap.html`)
 }

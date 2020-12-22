@@ -2,8 +2,6 @@ const socket = io();
 const protocol = window.location.protocol;
 const domain = window.location.host;
 
-
-
 // date
 const todayIs = (new Date()).toISOString().split('T')[0];
 const statusDiv = document.querySelector('#franchise-status')

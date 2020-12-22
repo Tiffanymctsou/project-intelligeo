@@ -27,9 +27,10 @@ function setPassword() {
     if (password == null || confirm_password == null) {
         return
     } else if (password != confirm_password) {
-        alert('密碼不相符！')
+        tryAgain()
         return
     }
+
     const data = {
         password: password
     }
@@ -38,7 +39,16 @@ function setPassword() {
     })
         .then((response) => {
             if (response.status == 200) {
-                window.location.replace('/franchise/login.html');
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: '回報成功',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setTimeout(function () {
+                    window.location.href = '/franchise/login.html';
+                }, 1500);
             }
         })
 

@@ -1,6 +1,7 @@
 const protocol = window.location.protocol;
 const domain = window.location.host;
 const storage = window.localStorage;
+const socket = io();
 
 function addFranchise() {
     const franchise_id = document.getElementById('franchise_id').value;
@@ -28,6 +29,7 @@ function addFranchise() {
     axios.post(`${protocol}//${domain}/admin/addFranchise`, franchiseInfo)
         .then((response) => {
             console.log(response.data.data.msg);
+            socket.emit('add-franchise', { num: 1 })
             storage.removeItem('coordinates');
             window.location.replace('/admin/allFranchise.html');
         })
