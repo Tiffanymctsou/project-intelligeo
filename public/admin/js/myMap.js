@@ -253,6 +253,7 @@ function initMap() {
         })
 
         async function getPolygonInfo(shape) {
+
             const coordinates = await getShapeCoordinates(shape);
             const locationData = {
                 coordinates: coordinates

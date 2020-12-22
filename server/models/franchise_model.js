@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const salt = parseInt(process.env.BCRYPT_SALT);
 const secret = process.env.JWT_SECRET;
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const verifySetting = async (id, uid) => {
     try {
@@ -52,7 +52,7 @@ const nativeLogin = async (account, password, expire) => {
             await commit();
             return { error: 'Incorrect Password!' };
         }
-        const loginAt = moment().format('YYYY-MM-DD H:mm:ss');
+        const loginAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD H:mm:ss');
         const queryStr = 'UPDATE user SET login_at = ? WHERE account = ?';
         await query(queryStr, [loginAt, account]);
         await commit();
@@ -109,8 +109,8 @@ const getOpen = async (franchise_id, today) => {
 const updateOpenStatus = async (franchise_id, location, status) => {
     try {
         await transaction();
-        const date = moment().format('YYYY-MM-DD')
-        const time = moment().format('H:mm:ss');
+        const date = moment.tz('Asia/Taipei').format('YYYY-MM-DD')
+        const time = moment.tz('Asia/Taipei').format('H:mm:ss');
         const openLog = {
             franchise_id: franchise_id,
             open_location: location,
@@ -137,7 +137,7 @@ const updateOpenStatus = async (franchise_id, location, status) => {
 const reportClose = async (status, log_id) => {
     try {
         await transaction();
-        const time = moment().format('H:mm:ss');
+        const time = moment.tz('Asia/Taipei').format('H:mm:ss');
         const sqlQuery = 'UPDATE open_log SET close_time = ?, open_status = ? WHERE id = ?';
         await query(sqlQuery, [time, status, log_id])
         await commit();
@@ -157,7 +157,7 @@ const reportSales = async (log_id, amount) => {
             log_id: log_id,
             amount: amount
         }
-        const time = moment().format('H:mm:ss');
+        const time = moment.tz('Asia/Taipei').format('H:mm:ss');
         const updateSql = 'UPDATE open_log SET report_status = ?, report_time = ? WHERE id = ?';
         await query(updateSql, [1, time, log_id])
         const insertSql = 'INSERT INTO sales SET ?'

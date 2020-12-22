@@ -3,7 +3,7 @@ const validator = require('validator');
 const Franchise = require('../models/franchise_model');
 const turf = require('turf');
 const axios = require('axios');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const util = require('../../util/util');
 const expire = process.env.TOKEN_EXPIRE;
 const jwt = require('jsonwebtoken');
@@ -55,7 +55,7 @@ const getLocationRecord = async (req, res) => {
 
 const getOpenStatus = async (req, res) => {
     const franchiseId = req.franchiseId;;
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
     const unreportedLog = await Franchise.getUnreported(franchiseId, today)
     const openLog = await Franchise.getOpen(franchiseId, today)
     const openStatus = {

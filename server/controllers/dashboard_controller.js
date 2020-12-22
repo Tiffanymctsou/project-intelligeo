@@ -1,6 +1,6 @@
 require('dotenv').config();
 const Dashboard = require('../models/dashboard_model');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const util = require('../../util/util');
 const bcrypt = require('bcrypt');
 const inLineCss = require('nodemailer-juice');

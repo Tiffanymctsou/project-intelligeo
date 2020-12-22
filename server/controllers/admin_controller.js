@@ -3,7 +3,7 @@ const validator = require('validator');
 const Admin = require('../models/admin_model');
 const turf = require('turf');
 const axios = require('axios');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const util = require('../../util/util');
 const bcrypt = require('bcrypt');
 const inLineCss = require('nodemailer-juice');
@@ -181,7 +181,7 @@ const addFranchise = async (req, res) => {
     // }
 
     // name = validator.escape(name);
-    const join_date = moment().format('YYYY-MM-DD');
+    const join_date = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
     const result = await Admin.addFranchise(franchise_id, franchise_fullname, franchise_city, franchise_email, franchise_phone, franchise_address, franchise_location, coordinates, join_date);
     const user = await Admin.createAccount(franchise_id, franchise_email)
 
@@ -275,7 +275,7 @@ const getFranchise = async (req, res) => {
 }
 
 const getReportStatus = async (req, res) => {
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
     const result = await Admin.getReportStatus(today);
     res.status(200).send(result);
 }

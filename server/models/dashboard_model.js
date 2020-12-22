@@ -1,10 +1,10 @@
 const { transaction, commit, rollback, query } = require('./mysqlcon');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 // frequently used
-const today = moment().format('YYYY-MM-DD')
-const startOfMonth = moment().startOf('month').format('YYYY-MM-DD')
-const endOfMonth = moment().endOf('month').format('YYYY-MM-DD')
+const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD')
+const startOfMonth = moment.tz('Asia/Taipei').startOf('month').format('YYYY-MM-DD')
+const endOfMonth = moment.tz('Asia/Taipei').endOf('month').format('YYYY-MM-DD')
 
 const getReportStatus = async () => {
     try {

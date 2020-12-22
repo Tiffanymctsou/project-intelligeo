@@ -21,3 +21,7 @@ public/admin/images
 public/admin/plugins
 public/admin/js/plugins-init
 public/admin/js/dashboard
+
+# file
+intelligeo.sql
+public/admin/geo/map-loading.gif
