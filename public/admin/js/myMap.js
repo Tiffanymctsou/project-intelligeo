@@ -56,6 +56,7 @@ function initMap() {
     let selectedShape;
     let infoWindow;
     let infoMarker;
+    let content;
     let poiMarkers = []
     let areaPolygons = []
 
@@ -64,6 +65,7 @@ function initMap() {
         selectedShape = shape;
         shape.setEditable(true);
     }
+
     function clearSelection() {
         if (selectedShape) {
             selectedShape.setEditable(false);
@@ -98,7 +100,10 @@ function initMap() {
             alert('請先決定加盟主區域！')
         }
     }
-
+    // function isInfoWindowOpen(infoWindow) {
+    //     var map = infoWindow.getMap();
+    //     return (map !== null && typeof map !== 'undefined');
+    // }
     function initialise() {
         let map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
@@ -253,31 +258,67 @@ function initMap() {
         })
 
         async function getPolygonInfo(shape) {
-
-            const coordinates = await getShapeCoordinates(shape);
-            const locationData = {
-                coordinates: coordinates
-            }
-            const location = await axios.post(`${protocol}//${domain}/admin/getLocationPop`, locationData)
-                .then((response) => {
-                    const data = response.data.data
-                    return data
+            const coordinates = await getShapeCoordinates(shape)
+            if (coordinates.length <= 2) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '哎呀！',
+                    text: '請重新登入再試！'
+                }).then(() => {
+                    selectedShape.setMap(null);
+                    // To show:
+                    drawingManager.setOptions({
+                        drawingControl: true,
+                    });
+                    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
                 })
-            const content = `
-                        <div id="content">
+                return
+            } else {
+                document.getElementById('loading-map').style.display = 'flex';
+                const locationData = {
+                    coordinates: coordinates
+                }
+                const location = await axios.post(`${protocol}//${domain}/admin/getLocationPop`, locationData)
+                    .then((response) => {
+                        const data = response.data.data
+                        return data
+                    })
+                const popData = `
+                        <div id="infowindow-content">
                             <p><b>區域戶數：</b>${location.locationPop.household_no}</p><br>
                             <p><b>區域總人口：</b>${location.locationPop.ppl_total}</p><br>
                             <p><b>區域人口（男）：</b>${location.locationPop.ppl_total_m}</p><br>
-                            <p><b>區域人口（女）：</b>${location.locationPop.ppl_total_f}</p><br>
+                            <p><b>區域人口（女）：</b>${location.locationPop.ppl_total_f}</p><br>`
+                const addBtn = `
+                            <div class="round-button">
+                            <div class="round-button-circle" id="next"><a class="round-button"><i
+                                        class="fa fa-user-plus"></i></a></div>
+                            </div>`
+                const removeBtn = `
+                            <div class="round-button">
+                            <div class="round-button-circle" id="remove-shape"><a class="round-button"><i
+                                        class="fa fa-trash"></i></a></div>
+                        </div>
                         </div>`
-            infoWindow = new google.maps.InfoWindow({
-                content: content
-            });
-            infoMarker = new google.maps.Marker({
-                map: map,
-                position: { lat: location.spotCentre[1], lng: location.spotCentre[0] }
-            });
-            infoWindow.open(map, infoMarker)
+                content = popData + addBtn + removeBtn
+                infoWindow = new google.maps.InfoWindow({
+                    content: content
+                });
+                infoMarker = new google.maps.Marker({
+                    map: map,
+                    position: { lat: location.spotCentre[1], lng: location.spotCentre[0] }
+                });
+
+                document.getElementById('loading-map').style.display = 'none';
+                infoWindow.open(map, infoMarker)
+                google.maps.event.addListener(infoWindow, 'domready', function () {
+                    google.maps.event.addDomListener(document.querySelector('#remove-shape'), 'click', deleteSelectedShape);
+                    google.maps.event.addDomListener(document.querySelector('#next'), 'click', saveCoordinates);
+                })
+                infoMarker.addListener('click', () => {
+                    infoWindow.open(map, infoMarker)
+                })
+            }
         }
 
         function editPolygon(action) {
@@ -299,9 +340,9 @@ function initMap() {
             },
             polygonOptions: {
                 strokeWeight: 0,
-                strokeColor: '#1E90FF',
-                fillColor: '#1E90FF',
-                fillOpacity: 0.45,
+                strokeColor: '#361cc1',
+                fillColor: '#361cc1',
+                fillOpacity: 0.3,
                 editable: true
             },
             map: map
@@ -328,8 +369,6 @@ function initMap() {
 
         google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
         google.maps.event.addListener(map, 'click', clearSelection);
-        google.maps.event.addDomListener(document.getElementById('remove-shape'), 'click', deleteSelectedShape);
-        google.maps.event.addDomListener(document.getElementById('next'), 'click', saveCoordinates);
     }
     google.maps.event.addDomListener(window, 'load', initialise);
 }
