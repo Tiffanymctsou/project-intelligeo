@@ -24,12 +24,12 @@ const getLocationPop = async (req, res) => {
 	const townData = townGeo.features;
 	const villageData = villageGeo.features;
 
-	cityData.forEach(city => {
+	cityData.forEach((city) => {
 		if (city.geometry.type == 'Polygon') {
 			const cityPoly = turf.polygon(city.geometry.coordinates);
 			const isIntersected = turf.intersect(selectedPoly, cityPoly);
 			if (isIntersected) {
-				townData.forEach(town => {
+				townData.forEach((town) => {
 					if (town.geometry.type == 'Polygon' && town.properties.COUNTYCODE == city.properties.COUNTYCODE) {
 						const townPoly = turf.polygon(town.geometry.coordinates);
 						const isIntersected = turf.intersect(selectedPoly, townPoly);
@@ -42,8 +42,8 @@ const getLocationPop = async (req, res) => {
 		}
 	});
 
-	townCodes.forEach(code => {
-		villageData.forEach(village => {
+	townCodes.forEach((code) => {
+		villageData.forEach((village) => {
 			if (village.geometry.type == 'Polygon' && village.properties.TOWNCODE == code) {
 				const villagePoly = turf.polygon(village.geometry.coordinates);
 				const villageArea = turf.area(villagePoly);
@@ -109,7 +109,7 @@ const getLocationSpot = async (req, res) => {
 	for (let i = 0; i < poi.length; i++) {
 		const spot = await Admin.getMarker(poi[i], south, west, north, east);
 		const spotInfo = [];
-		spot.marker.forEach(point => {
+		spot.marker.forEach((point) => {
 			const info = {
 				poi: poi[i],
 				icon: point.icon_path,
@@ -139,7 +139,7 @@ const getFranchiseArea = async (req, res) => {
 			area: [],
 		};
 		const area = await alterCoordinates(JSON.parse(franchises[i].area));
-		area.forEach(coordinate => {
+		area.forEach((coordinate) => {
 			const latLng = {
 				lat: coordinate[1],
 				lng: coordinate[0],
@@ -237,7 +237,7 @@ const addFranchise = async (req, res) => {
 	};
 	util.transporter.use('compile', inLineCss());
 	if (validator.isEmail(franchise_email)) {
-		util.transporter.sendMail(mailOptions, function(err, info) {
+		util.transporter.sendMail(mailOptions, function (err, info) {
 			if (err) {
 				return console.log(err);
 			}
@@ -287,9 +287,10 @@ const sendMailContent = async (name, protocol, domain, franchise_id, franchise_e
           <p>歡迎您的加入！</p>
           <p>請您點擊以下連結設置您的密碼：</p>
           <p class="strong">${protocol}://${domain}/franchise/setting.html?id=${franchise_id}&uid=${hashed_email}</p>
-    
-          <h6 class="admin">※此信件為系統發出信件，請勿直接回覆。若您有任何問題，請洽 Intelligeo 客服中心，謝謝！</h6>
-        </div>
+			<div class="logo">
+                <a href="https://intelligeo.online"><img src="https://d2vlwc6o9qpx5r.cloudfront.net/images/admin/logo-1.png" width="200px"/></a>
+        	</div>
+		</div>
     </body>
 </html>
     `;

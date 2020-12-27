@@ -13,9 +13,13 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/myStyle.css" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../js/admin/new_franchise_profile.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
 </head>
 
 <body>
@@ -121,8 +125,8 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="map-card">
-                        <div class="map-body">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="form-validation">
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="franchise_id">加盟主編號 <span
@@ -217,32 +221,28 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <!-- <div class="card"> -->
                     <div class="card-body">
                         <button class="btn btn-outline-primary"
-                            onclick="window.location.replace('/admin/index.html');">Previous</button>
-                        <button class="btn btn-primary" style="float:right;" onclick="addFranchise()">Submit</button>
+                            onclick="window.location.replace('/admin/index.html');">上一頁</button>
+                        <button class="btn btn-primary" style="float:right;" onclick="addFranchise()">送出</button>
                     </div>
                 </div>
             </div>
+            <!-- #/ container -->
         </div>
-        <!-- #/ container -->
-    </div>
-    <!-- Content body end -->
+        <!-- Content body end -->
 
-    <!-- Main wrapper end -->
+        <!-- Main wrapper end -->
 
-    <!-- Scripts -->
-    <script src="../plugins/common/common.min.js"></script>
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/settings.js"></script>
-    <script src="../js/gleek.js"></script>
-    <script src="../js/styleSwitcher.js"></script>
+        <!-- Scripts -->
+        <script src="../plugins/common/common.min.js"></script>
+        <script src="../js/custom.min.js"></script>
+        <script src="../js/settings.js"></script>
+        <script src="../js/gleek.js"></script>
+        <script src="../js/styleSwitcher.js"></script>
 
-    <script src="../plugins/validation/jquery.validate.min.js"></script>
-    <script src="../plugins/validation/jquery.validate-init.js"></script>
+        <script src="../plugins/validation/jquery.validate.min.js"></script>
+        <script src="../plugins/validation/jquery.validate-init.js"></script>
 
 </body>
 

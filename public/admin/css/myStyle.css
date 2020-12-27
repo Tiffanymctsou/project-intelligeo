@@ -239,21 +239,26 @@ input:checked+.slider:before {
 }
 
 .geoColor-1 {
-  background-color: #ff595e;
+  background-color: #fa6b6f;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .geoColor-2 {
-  background-color: #ffca3a;
+  background-color: #ff8f39;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .geoColor-3 {
-  background-color: #7fb800;
+  background-color: #8fb63c;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .geoColor-4 {
-  background-color: #1982c4;
+  background-color: #358bc0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-group input {
+  letter-spacing: 1px;
+  padding-left: 15px;
 }

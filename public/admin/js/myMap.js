@@ -8,7 +8,7 @@ async function getTowns(index) {
 
 	const selectedCity = city[index].value;
 	const towns = await app.readjson('./geo/city_town.json');
-	towns.forEach(town => {
+	towns.forEach((town) => {
 		if (town.city == selectedCity) {
 			const info = {
 				town_name: town.town,
@@ -24,7 +24,7 @@ async function getTowns(index) {
 	// show towns
 	const townSelectTag = document.getElementById('map_town');
 	let options = `<option>行政區</option>`;
-	townInfo.forEach(town => {
+	townInfo.forEach((town) => {
 		options += `<option value="${town.town_code}">${town.town_name}</option>`;
 	});
 	townSelectTag.innerHTML = options;
@@ -34,7 +34,7 @@ async function getCentre(index) {
 	const selectedTown = town[index].value;
 	town[0].disabled = true;
 	let centre;
-	townInfo.forEach(town => {
+	townInfo.forEach((town) => {
 		if (town.town_code == selectedTown) {
 			centre = town.centre;
 		}
@@ -43,7 +43,7 @@ async function getCentre(index) {
 }
 async function getShapeCoordinates(shape) {
 	const paths = shape.getPath().getArray();
-	const coordinates = paths.map(location => {
+	const coordinates = paths.map((location) => {
 		let coordinates = [location.lng(), location.lat()];
 		return coordinates;
 	});
@@ -82,7 +82,7 @@ function initMap() {
 			infoWindow.close();
 			infoMarker.setMap(null);
 			if (poiMarkers.length != 0) {
-				poiMarkers.forEach(marker => {
+				poiMarkers.forEach((marker) => {
 					marker.setMap(null);
 				});
 				document.querySelector('.results').innerHTML = '';
@@ -133,12 +133,10 @@ function initMap() {
 					poi: poi,
 				};
 
-				const locationSpot = await axios
-					.post(`${protocol}//${domain}/admin/getLocationSpot`, spotData)
-					.then(response => {
-						const data = response.data.data;
-						return data;
-					});
+				const locationSpot = await axios.post(`${protocol}//${domain}/admin/getLocationSpot`, spotData).then((response) => {
+					const data = response.data.data;
+					return data;
+				});
 				return locationSpot;
 			}
 		}
@@ -153,7 +151,7 @@ function initMap() {
 		async function getPoi() {
 			const POIs = [];
 			const checkboxes = document.querySelectorAll('.form-check-input');
-			checkboxes.forEach(checkbox => {
+			checkboxes.forEach((checkbox) => {
 				if (checkbox.checked) {
 					POIs.push(checkbox.value);
 				}
@@ -162,8 +160,8 @@ function initMap() {
 		}
 		function showMarkers(map, locationSpot) {
 			if (locationSpot != null) {
-				locationSpot.spots.forEach(poi => {
-					poi.forEach(spot => {
+				locationSpot.spots.forEach((poi) => {
+					poi.forEach((spot) => {
 						const marker = new google.maps.Marker({
 							position: spot.location,
 							icon: {
@@ -183,7 +181,7 @@ function initMap() {
 		}
 		function clearMarkers(value) {
 			if (poiMarkers.length !== 0) {
-				poiMarkers.forEach(marker => {
+				poiMarkers.forEach((marker) => {
 					if (marker.poi == value) {
 						marker.marker.setMap(null);
 					}
@@ -194,7 +192,7 @@ function initMap() {
 
 		// franchise switch
 		async function loadFranchise() {
-			const franchiseArea = await axios.get(`${protocol}//${domain}/admin/getFranchiseArea`).then(response => {
+			const franchiseArea = await axios.get(`${protocol}//${domain}/admin/getFranchiseArea`).then((response) => {
 				const data = response.data.data;
 				return data;
 			});
@@ -210,7 +208,7 @@ function initMap() {
 		}
 		function showArea(map, franchiseArea) {
 			if (franchiseArea != null) {
-				franchiseArea.franchiseArea.forEach(franchise => {
+				franchiseArea.franchiseArea.forEach((franchise) => {
 					const area = new google.maps.Polygon({
 						path: franchise.area,
 						strokeColor: '#FF0000',
@@ -229,7 +227,7 @@ function initMap() {
 		}
 		function showAreaInfo(area, info, map) {
 			const infoWindow = new google.maps.InfoWindow();
-			google.maps.event.addListener(area, 'mouseover', event => {
+			google.maps.event.addListener(area, 'mouseover', (event) => {
 				infoWindow.setContent(info);
 				infoWindow.setPosition(event.latLng);
 				area.setOptions({
@@ -237,7 +235,7 @@ function initMap() {
 				});
 				infoWindow.open(map);
 			});
-			google.maps.event.addListener(area, 'mouseout', event => {
+			google.maps.event.addListener(area, 'mouseout', (event) => {
 				area.setOptions({
 					fillColor: '#FFAF60',
 				});
@@ -246,7 +244,7 @@ function initMap() {
 		}
 		function clearArea() {
 			if (areaPolygons.length !== 0) {
-				areaPolygons.forEach(polygon => {
+				areaPolygons.forEach((polygon) => {
 					polygon.setMap(null);
 				});
 			}
@@ -266,11 +264,11 @@ function initMap() {
 			};
 			const location = await axios
 				.post(`${protocol}//${domain}/admin/getLocationPop`, locationData)
-				.then(response => {
+				.then((response) => {
 					const data = response.data.data;
 					return data;
 				})
-				.catch(error => {
+				.catch((error) => {
 					Swal.fire({
 						icon: 'error',
 						title: 'Ooops！',
@@ -294,7 +292,7 @@ function initMap() {
 			const addBtn = `
                             <div class="round-button">
                             <div class="round-button-circle" id="next"><a class="round-button"><i
-                                        class="fa fa-user-plus" title="新增加盟主"></i></a></div>
+                                        class="fa fa-user-plus" title="新增營業夥伴"></i></a></div>
                             </div>`;
 			const removeBtn = `
                             <div class="round-button">
@@ -316,7 +314,7 @@ function initMap() {
 			const end = new Date().getTime();
 			const timer = end - start;
 			console.log(`Execution time: ${timer}`);
-			google.maps.event.addListener(infoWindow, 'domready', function() {
+			google.maps.event.addListener(infoWindow, 'domready', function () {
 				google.maps.event.addDomListener(document.querySelector('#remove-shape'), 'click', deleteSelectedShape);
 				google.maps.event.addDomListener(document.querySelector('#next'), 'click', saveCoordinates);
 			});
@@ -352,7 +350,7 @@ function initMap() {
 			map: map,
 		});
 
-		google.maps.event.addListener(drawingManager, 'overlaycomplete', async function(e) {
+		google.maps.event.addListener(drawingManager, 'overlaycomplete', async function (e) {
 			if (e.type != google.maps.drawing.OverlayType.MARKER) {
 				drawingManager.setDrawingMode(null);
 				drawingManager.setOptions({

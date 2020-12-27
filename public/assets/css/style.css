@@ -1008,7 +1008,7 @@ p {
 }
 
 .header-hero-image img {
-  max-width: 650px;
+  max-width: 750px;
 }
 
 @media (max-width: 767px) {
@@ -1196,7 +1196,7 @@ p {
 }
 
 .single-services:hover {
-  border-color: #FE7A7B;
+  border-color: #361CC1;
 }
 
 .single-services:hover .services-icon .shape {
