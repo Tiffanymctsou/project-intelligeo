@@ -1,4 +1,9 @@
 /* The switch - the box around the slider */
+#chart_widget_2 {
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
 
 .switch {
   position: relative;
@@ -42,11 +47,11 @@
 }
 
 input:checked+.slider {
-  background-color: #2196F3;
+  background-color: #ffbe0d;
 }
 
 input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #ffbe0d;
 }
 
 input:checked+.slider:before {
@@ -120,13 +125,6 @@ input:checked+.slider:before {
 #loading-map img {
   width: 15%;
 }
-
-/* #rm-shape-btn {
-  width: 100%;
-  text-align: left;
-  margin-left: 20px;
-  margin-top: 550px;
-} */
 
 #poi_card {
   margin: 1rem 0 0;
@@ -218,8 +216,9 @@ input:checked+.slider:before {
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: #fff;
-  background-color: #7571f9;
-  border-color: #7571f9;
+  background-color: #361cc1;
+  border-color: #361cc1;
+  width: 100px;
 }
 
 #no-report-yet {
@@ -233,4 +232,28 @@ input:checked+.slider:before {
   font-weight: bold;
   letter-spacing: 2px;
   margin-top: 20px;
+}
+
+#dashboard-icon:hover {
+  color:#ffbe0d !important;
+}
+
+.geoColor-1 {
+  background-color: #ff595e;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.geoColor-2 {
+  background-color: #ffca3a;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.geoColor-3 {
+  background-color: #7fb800;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.geoColor-4 {
+  background-color: #1982c4;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

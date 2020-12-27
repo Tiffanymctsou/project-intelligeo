@@ -6,6 +6,6 @@ const domain = window.location.host;
 // }
 
 function login() {
-    event.preventDefault();
-    window.location.replace(`${protocol}//${domain}/admin/myMap.html`)
+	event.preventDefault();
+	window.location.replace(`${protocol}//${domain}/admin/index.html`);
 }

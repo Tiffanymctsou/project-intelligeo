@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>INTELLIGEO</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/admin/images/favicon.png">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css"
+        rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
@@ -32,14 +35,9 @@
 
         <!-- Nav header start -->
         <div class="nav-header" style="background-color:#361cc1;">
-            <div class="brand-logo">
-                <a href="/admin/myMap.html">
-                    <b class="logo-abbr"><img src="../images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="../images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <h2 class="text-white">INTELLIGEO</h2>
-                        <!-- <img src="images/logo-text.png" alt=""> -->
-                    </span>
+            <div class="brand-title" style="width: 210px; margin-top:18px;">
+                <a href="/admin">
+                    <img src=" /admin/images/logo.png">
                 </a>
             </div>
         </div>
@@ -54,149 +52,10 @@
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                <div class="header-left">
-                    <div class="input-group icons">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
-                                    class="mdi mdi-magnify"></i></span>
-                        </div>
-                        <input type="search" class="form-control" placeholder="Search Dashboard"
-                            aria-label="Search Dashboard">
-                        <div class="drop-down animated flipInX d-md-none">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <ul class="clearfix">
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="badge badge-pill gradient-1">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">3 New Messages</span>
-                                    <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-1">3</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/1.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Saiful Islam</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/2.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Adam Smith</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Can you do me a favour?</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/3.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Barak Obama</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/4.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Hilari Clinton</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hello</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                                <span class="badge badge-pill gradient-2">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">2 New Notifications</span>
-                                    <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-2">5</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events near you</h6>
-                                                    <span class="notification-text">Within next 5 days</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Started</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Ended Successfully</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events to Join</h6>
-                                                    <span class="notification-text">After two days</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown">
+                <!-- <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="../images/user/1.png" height="40" width="40" alt="">
+                                <img src="images/user/1.png" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -210,200 +69,172 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- Header end -->
-        <!-- Sidebar start -->
-        <div class="nk-sidebar">
-            <div class="nk-nav-scroll">
-                <ul class="metismenu" id="menu">
-                    <!-- <li class="nav-label">DASHBOARD</li> -->
-                    <li>
-                        <a href="/admin/myMap.html" aria-expanded="false">
-                            <i class="icon-map menu-icon"></i><span class="nav-text">我的市場地圖</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">儀表板</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/allFranchise.html" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">所有營業夥伴</span>
-                        </a>
-                    </li>
-                    <!-- <li class="nav-label">ADMIN</li> -->
-                    <!-- <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">管理加盟</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/allFranchise.html">所有加盟主</a></li>
-                            <li><a href="/admin/myMap.html">我的市場地圖</a></li>
-                        </ul>
-                    </li> -->
-                    <!-- <li class="nav-label">TOOLS</li> -->
-                    <!-- <li>
-                        <a href="/admin/email-inbox.html" aria-expanded="false">
-                            <i class="icon-envelope menu-icon"></i><span class="nav-text">信箱</span>
-                        </a>
-                    </li> -->
-
+                        </li> -->
                 </ul>
             </div>
         </div>
-        <!-- Sidebar end -->
+    </div>
+    <!-- Header end -->
+    <!-- Sidebar start -->
+    <div class="nk-sidebar">
+        <div class="nk-nav-scroll">
+            <ul class="metismenu" id="menu">
+                <li>
+                    <a href="/admin" aria-expanded="false" style="display: inherit;">
+                        <div style=" margin-right: 10px;"><i class="icon-map-marker menu-icon"
+                                style="color:#ff5e5e; font-size: 18px; margin-left:3px; margin-right:3px;"></i>
+                        </div>
+                        <div><span class=" nav-text">我的市場地圖</span></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/dashboard.html" aria-expanded="false" style="display: inherit;">
+                        <div style=" margin-right: 10px;"><i class="icon-dashboard menu-icon"
+                                style="color:#ffbe0d;font-size: 16px;"></i></div>
+                        <div style="display: inline-block;"><span class="nav-text">儀表板</span></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/allFranchise.html" aria-expanded="false" style="display: inherit;">
+                        <div style=" margin-right: 9px;"><i class=" icon-group menu-icon"
+                                style="color:#361cc1;font-size: 16px;"></i></div>
+                        <div><span class="nav-text">所有營業夥伴</span></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Sidebar end -->
 
-        <div class="content-body">
+    <div class="content-body">
 
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
-                    </ol>
-                </div>
+        <div class="row page-titles mx-0">
+            <div class="col p-md-0">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/addFranchise/profile.html">新增加盟主</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/inxde.html">我的市場地圖</a></li>
+                </ol>
             </div>
-            <!-- row -->
+        </div>
+        <!-- row -->
 
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12">
-                        <div class="map-card">
-                            <div class="map-body">
-                                <div class="form-validation">
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_id">加盟主編號 <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="franchise_id"
-                                                placeholder="請輸入加盟主編號">
-                                        </div>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="map-card">
+                        <div class="map-body">
+                            <div class="form-validation">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_id">加盟主編號 <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="franchise_id" placeholder="請輸入加盟主編號"
+                                            value="N100">
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_fullname">姓名 <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="franchise_fullname"
-                                                placeholder="請輸入加盟主姓名">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_fullname">姓名 <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="franchise_fullname"
+                                            placeholder="請輸入加盟主姓名" value="Tiffany">
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_city">所在城市 <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <select class="form-control" id="franchise_city">
-                                                <optgroup label="北部地區">
-                                                    <option value="基隆市">基隆市</option>
-                                                    <option value="臺北市">臺北市</option>
-                                                    <option value="新北市">新北市</option>
-                                                    <option value="桃園市">桃園市</option>
-                                                    <option value="新竹市">新竹市</option>
-                                                    <option value="新竹縣">新竹縣</option>
-                                                    <option value="宜蘭縣">宜蘭縣</option>
-                                                </optgroup>
-                                                <optgroup label="中部地區">
-                                                    <option value="臺中市">臺中市</option>
-                                                    <option value="苗栗縣">苗栗縣</option>
-                                                    <option value="彰化縣">彰化縣</option>
-                                                    <option value="南投縣">南投縣</option>
-                                                    <option value="雲林縣">雲林縣</option>
-                                                </optgroup>
-                                                <optgroup label="南部地區">
-                                                    <option value="臺南市">臺南市</option>
-                                                    <option value="高雄市">高雄市</option>
-                                                    <option value="嘉義市">嘉義市</option>
-                                                    <option value="嘉義縣">嘉義縣</option>
-                                                    <option value="屏東縣">屏東縣</option>
-                                                </optgroup>
-                                                <optgroup label="東部地區">
-                                                    <option value="臺東縣">臺東縣</option>
-                                                    <option value="花蓮縣">花蓮縣</option>
-                                                </optgroup>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_city">所在城市 <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="franchise_city">
+                                            <optgroup label="北部地區">
+                                                <option value="基隆市">基隆市</option>
+                                                <option value="臺北市">臺北市</option>
+                                                <option value="新北市">新北市</option>
+                                                <option value="桃園市">桃園市</option>
+                                                <option value="新竹市">新竹市</option>
+                                                <option value="新竹縣">新竹縣</option>
+                                                <option value="宜蘭縣">宜蘭縣</option>
+                                            </optgroup>
+                                            <optgroup label="中部地區">
+                                                <option value="臺中市">臺中市</option>
+                                                <option value="苗栗縣">苗栗縣</option>
+                                                <option value="彰化縣">彰化縣</option>
+                                                <option value="南投縣">南投縣</option>
+                                                <option value="雲林縣">雲林縣</option>
+                                            </optgroup>
+                                            <optgroup label="南部地區">
+                                                <option value="臺南市">臺南市</option>
+                                                <option value="高雄市">高雄市</option>
+                                                <option value="嘉義市">嘉義市</option>
+                                                <option value="嘉義縣">嘉義縣</option>
+                                                <option value="屏東縣">屏東縣</option>
+                                            </optgroup>
+                                            <optgroup label="東部地區">
+                                                <option value="臺東縣">臺東縣</option>
+                                                <option value="花蓮縣">花蓮縣</option>
+                                            </optgroup>
+                                        </select>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_email">Email <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="franchise_email"
-                                                placeholder="請輸入加盟主 Email">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_email">Email <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="franchise_email"
+                                            placeholder="請輸入加盟主 Email" value="wu0h960318@gmail.com">
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_phone">手機號碼 <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="franchise_phone"
-                                                placeholder="0912345678">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_phone">手機號碼 <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="franchise_phone"
+                                            placeholder="0912345678" value="0978467382">
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_address">收貨地址 <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="franchise_address"
-                                                placeholder="請輸入加盟主收貨地址（含縣市、行政區）">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_address">收貨地址 <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="franchise_address"
+                                            placeholder="請輸入加盟主收貨地址（含縣市、行政區）" value="臺北市信義區基隆路一段178號">
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="franchise_location">營業地址 <span
-                                                class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="franchise_location"
-                                                placeholder="請輸入加盟主營業地址（含縣市、行政區）">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="franchise_location">營業地址 <span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="franchise_location"
+                                            placeholder="請輸入加盟主營業地址（含縣市、行政區）" value="臺北市信義區基隆路一段178號">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <!-- <div class="card"> -->
-                        <div class="card-body">
-                            <button class="btn btn-outline-primary"
-                                onclick="window.location.replace('/admin/myMap.html');">Previous</button>
-                            <button class="btn btn-primary" style="float:right;"
-                                onclick="addFranchise()">Submit</button>
-                        </div>
+                </div>
+                <div class="col-lg-12">
+                    <!-- <div class="card"> -->
+                    <div class="card-body">
+                        <button class="btn btn-outline-primary"
+                            onclick="window.location.replace('/admin/index.html');">Previous</button>
+                        <button class="btn btn-primary" style="float:right;" onclick="addFranchise()">Submit</button>
                     </div>
                 </div>
             </div>
-            <!-- #/ container -->
         </div>
-        <!--
-            Content body end
-        -->
-
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright &copy; Developed by <a href="#">Tiffany</a>
-                    2020</p>
-            </div>
-        </div>
-        <!-- Footer end -->
+        <!-- #/ container -->
     </div>
-    <!--
-        Main wrapper end
-    -->
+    <!-- Content body end -->
 
-    <!--
-        Scripts
-    -->
+    <!-- Main wrapper end -->
+
+    <!-- Scripts -->
     <script src="../plugins/common/common.min.js"></script>
     <script src="../js/custom.min.js"></script>
     <script src="../js/settings.js"></script>

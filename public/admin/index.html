@@ -6,29 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>INTELLIGEO</title>
-    <!-- Scripts -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/lib.js"></script>
-    <script src="js/overview.js" type="module"></script>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <!-- Pignose Calender -->
-    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
-    <!-- Chartist -->
-    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
-    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/admin/images/favicon.png">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css"
+        rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/myStyle.css">
-    <link rel="stylesheet" href="../franchise/css/myStyle.css">
-    <link rel="stylesheet" href="../franchise/css/util.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/myStyle.css" rel="stylesheet">
+    <script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2IhCsBi4rwG6i62JBcV3QaUuCiCLP4Xs&libraries=drawing&callback=initMap"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="js/lib.js"></script>
+    <script src="js/myMap.js"></script>
 
 </head>
 
 <body>
+
     <!-- Preload start -->
-    <div id="preloader">
+    <div id=" preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
@@ -37,19 +35,14 @@
     </div>
     <!-- Preload end -->
 
-
     <!-- Main wrapper start -->
     <div id="main-wrapper">
 
         <!-- Nav header start -->
         <div class="nav-header" style="background-color:#361cc1;">
-            <div class="brand-logo">
-                <a href="/admin/myMap.html">
-                    <b class=" logo-abbr"><img src="/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="/images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <h2 class="text-white">INTELLIGEO</h2>
-                    </span>
+            <div class="brand-title" style="width: 210px; margin-top:18px;">
+                <a href="/admin">
+                    <img src=" /admin/images/logo.png">
                 </a>
             </div>
         </div>
@@ -64,146 +57,7 @@
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
                 </div>
-                <div class="header-left">
-                    <div class="input-group icons">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i
-                                    class="mdi mdi-magnify"></i></span>
-                        </div>
-                        <input type="search" class="form-control" placeholder="Search Dashboard"
-                            aria-label="Search Dashboard">
-                        <div class="drop-down animated flipInX d-md-none">
-                            <form action="#">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <ul class="clearfix">
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="badge badge-pill gradient-1">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">3 New Messages</span>
-                                    <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-1">3</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/1.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Saiful Islam</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="../images/avatar/2.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Adam Smith</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Can you do me a favour?</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="/images/avatar/3.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Barak Obama</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="/images/avatar/4.jpg"
-                                                    alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Hilari Clinton</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hello</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                                <span class="badge badge-pill gradient-2">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">2 New Notifications</span>
-                                    <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-2">5</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events near you</h6>
-                                                    <span class="notification-text">Within next 5 days</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Started</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Ended Successfully</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i
-                                                        class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events to Join</h6>
-                                                    <span class="notification-text">After two days</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown">
+                <!-- <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
                                 <img src="images/user/1.png" height="40" width="40" alt="">
@@ -220,205 +74,161 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- Header end -->
-
-        <!-- Sidebar start -->
-        <div class="nk-sidebar">
-            <div class="nk-nav-scroll">
-                <ul class="metismenu" id="menu">
-                    <!-- <li class="nav-label">DASHBOARD</li> -->
-                    <li>
-                        <a href="/admin/myMap.html" aria-expanded="false">
-                            <i class="icon-map menu-icon"></i><span class="nav-text">我的市場地圖</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">儀表板</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/allFranchise.html" aria-expanded="false">
-                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">所有營業夥伴</span>
-                        </a>
-                    </li>
-                    <!-- <li class="nav-label">ADMIN</li> -->
-                    <!-- <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">管理加盟</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/allFranchise.html">所有加盟主</a></li>
-                            <li><a href="/admin/myMap.html">我的市場地圖</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">TOOLS</li> -->
-                    <!-- <li>
-                        <a href="/admin/email-inbox.html" aria-expanded="false">
-                            <i class="icon-envelope menu-icon"></i><span class="nav-text">信箱</span>
-                        </a>
-                    </li> -->
-
+                        </li> -->
                 </ul>
             </div>
         </div>
-        <!-- Sidebar end -->
+    </div>
+    <!-- Header end -->
 
-        <!-- Content body start -->
-        <div class="content-body">
+    <!-- Sidebar start -->
+    <div class="nk-sidebar">
+        <div class="nk-nav-scroll">
+            <ul class="metismenu" id="menu">
+                <li>
+                    <a href="/admin" aria-expanded="false" style="display: inherit;">
+                        <div style=" margin-right: 10px;"><i class="icon-map-marker menu-icon"
+                                style="color:#ff5e5e; font-size: 18px; margin-left:3px; margin-right:3px;"></i>
+                        </div>
+                        <div><span class=" nav-text">我的市場地圖</span></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/dashboard.html" aria-expanded="false" style="display: inherit;">
+                        <div style=" margin-right: 10px;"><i class="icon-dashboard menu-icon"
+                                style="color:#ffbe0d;font-size: 16px;"></i></div>
+                        <div style="display: inline-block;"><span class="nav-text">儀表板</span></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/allFranchise.html" aria-expanded="false" style="display: inherit;">
+                        <div style=" margin-right: 9px;"><i class=" icon-group menu-icon"
+                                style="color:#361cc1;font-size: 16px;"></i></div>
+                        <div><span class="nav-text">所有營業夥伴</span></div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Sidebar end -->
 
-            <div class="container-fluid mt-3">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-1">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">當日營業額</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white">$ <span id="daily-sales"></span>
-                                    </h2>
-                                </div>
-                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-2">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">當月營業額</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white">$ <span id="monthly-sales"></span></h2>
-                                </div>
-                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-3">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">當月新增加盟主</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white"><span id="monthly-franchise"></span></h2>
-                                </div>
-                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card gradient-4">
-                            <div class="card-body">
-                                <h3 class="card-title text-white">加盟主總數</h3>
-                                <div class="d-inline-block">
-                                    <h2 class="text-white"><span id="total-franchise"></span></h2>
-                                </div>
-                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span> -->
-                            </div>
-                        </div>
+    <!-- Content body start -->
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- <div class="card"> -->
+                    <div class="card-body" id="select_location">
+                        <select id="map_city" onchange="getTowns(this.selectedIndex)">
+                            <option>縣市</option>
+                            <optgroup label=" 北部地區">
+                                <option value="基隆市">基隆市</option>
+                                <option value="臺北市">臺北市</option>
+                                <option value="新北市">新北市</option>
+                                <option value="桃園市">桃園市</option>
+                                <option value="新竹市">新竹市</option>
+                                <option value="新竹縣">新竹縣</option>
+                                <option value="宜蘭縣">宜蘭縣</option>
+                            </optgroup>
+                            <optgroup label="中部地區">
+                                <option value="臺中市">臺中市</option>
+                                <option value="苗栗縣">苗栗縣</option>
+                                <option value="彰化縣">彰化縣</option>
+                                <option value="南投縣">南投縣</option>
+                                <option value="雲林縣">雲林縣</option>
+                            </optgroup>
+                            <optgroup label="南部地區">
+                                <option value="臺南市">臺南市</option>
+                                <option value="高雄市">高雄市</option>
+                                <option value="嘉義市">嘉義市</option>
+                                <option value="嘉義縣">嘉義縣</option>
+                                <option value="屏東縣">屏東縣</option>
+                            </optgroup>
+                            <optgroup label="東部地區">
+                                <option value="臺東縣">臺東縣</option>
+                                <option value="花蓮縣">花蓮縣</option>
+                            </optgroup>
+                        </select>
+                        <select id="map_town">
+                            <option>行政區</option>
+                        </select>
                     </div>
                 </div>
-
-                <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body pb-0 d-flex justify-content-between">
-                                        <div>
-                                            <h4 class="mb-1">營業額成長</h4>
-                                            <p>總體營業額成長狀況</p> -->
-                <!-- <h3 class="m-0">$ 12,555</h3> -->
-                <!-- </div>
-                                        <div>
-                                            <ul>
-                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Day</a>
-                                                </li>
-                                                <li class="d-inline-block mr-3"><a class="text-dark" href="#">Week</a>
-                                                </li>
-                                                <li class="d-inline-block"><a class="text-dark" href="#">Month</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="chart-wrapper">
-                                        <canvas id="chart_widget_2"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="franchise-status">
-                                    <h4 class="mb-1">即時狀態</h4>
-                                </div>
-                                <div class="active-member">
-                                    <div class="table-responsive" id="dashboard-status-table">
-                                        <table class="table table-xs mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>#編號</th>
-                                                    <th>加盟主</th>
-                                                    <th>營業地址</th>
-                                                    <th>營業狀態</th>
-                                                    <th>營業時間</th>
-                                                    <th>營收回報</th>
-                                                    <th>營收回報時間</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="status-table">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Footer -->
-                <div class="footer">
-                    <div class="copyright">
-                        <p>Copyright &copy; Developed by <a href="#">Tiffany</a>
-                            2020</p>
-                    </div>
-                </div>
-                <!-- Footer end -->
             </div>
         </div>
-        <!-- Main wrapper end -->
 
-        <!-- Script -->
-        <script src="js/index.js"></script>
-        <script src="plugins/common/common.min.js"></script>
-        <script src="js/custom.min.js"></script>
-        <script src="js/settings.js"></script>
-        <script src="js/gleek.js"></script>
-        <script src="js/styleSwitcher.js"></script>
+        <div class="col-12">
 
-        <!-- Chartjs -->
-        <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
-        <!-- Circle progress -->
-        <script src="./plugins/circle-progress/circle-progress.min.js"></script>
-        <!-- Datamap -->
-        <script src="./plugins/d3v3/index.js"></script>
-        <script src="./plugins/topojson/topojson.min.js"></script>
-        <script src="./plugins/datamaps/datamaps.world.min.js"></script>
-        <!-- Morrisjs -->
-        <script src="./plugins/raphael/raphael.min.js"></script>
-        <script src="./plugins/morris/morris.min.js"></script>
-        <!-- Pignose Calender -->
-        <script src="./plugins/moment/moment.min.js"></script>
-        <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
-        <!-- ChartistJS -->
-        <script src="./plugins/chartist/js/chartist.min.js"></script>
-        <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-        <script src="./js/dashboard/dashboard-1.js"></script>
+            <div class="map-card">
+                <div class="map-body">
+                    <div class="map-content" id="map">
+
+                    </div>
+                    <div id="loading-map"><img src="geo/map-loading.gif">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card" id="poi-card">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title">顯示店面分佈</h5>
+                        <label class="switch">
+                            <input type="checkbox" id="franchise_switch">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <div id="poi_card">
+                        <h4 class="card-title">興趣點</h5>
+                    </div>
+                    <div class="basic-form">
+                        <form>
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" value="pxmart_location"
+                                            id="pxmart">全聯福利中心</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- #/ container -->
+    </div>
+    <!--
+            Content body end
+        -->
+
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright &copy; Developed by <a href="#">Tiffany</a>
+                2020</p>
+        </div>
+    </div>
+    <!-- Footer end -->
+    </div>
+    <!--
+        Main wrapper end
+    -->
+
+    <!--
+        Scripts
+    -->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
 
 </body>
 

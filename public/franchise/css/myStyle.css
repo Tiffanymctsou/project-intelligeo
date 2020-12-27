@@ -109,7 +109,7 @@ hr {
     transition: all 0.4s;
 }
 
-.home-select-btn:hover:before {
+.home-select-btn:hover:enabled:before {
     opacity: 1;
 }
 
@@ -161,9 +161,18 @@ hr {
     transition: all 0.4s;
 }
 
-.home-select-btn-relax:hover:before {
+.home-select-btn-relax:hover:enabled:before {
     opacity: 1;
 }
+
+.home-select-btn:disabled {
+    background: #999999;
+}
+
+.home-select-btn-relax:disabled {
+    background: #999999;
+}
+
 
 .container-login101-form-btn {
     width: 110px;
