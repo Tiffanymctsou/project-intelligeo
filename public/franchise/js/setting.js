@@ -31,27 +31,27 @@ function setPassword() {
 	} else if (password != confirm_password) {
 		tryAgain();
 		return;
+	} else {
+		const data = {
+			password: password,
+		};
+		axios
+			.post(`${protocol}//${domain}/franchise/setAccount`, data, {
+				params: { id: id },
+			})
+			.then((response) => {
+				if (response.status == 200) {
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: '回報成功',
+						showConfirmButton: false,
+						timer: 1500,
+					});
+					setTimeout(function () {
+						window.location.href = '/franchise/login.html';
+					}, 1500);
+				}
+			});
 	}
-
-	const data = {
-		password: password,
-	};
-	axios
-		.post(`${protocol}//${domain}/franchise/setAccount`, data, {
-			params: { id: id },
-		})
-		.then((response) => {
-			if (response.status == 200) {
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: '回報成功',
-					showConfirmButton: false,
-					timer: 1500,
-				});
-				setTimeout(function () {
-					window.location.href = '/franchise/login.html';
-				}, 1500);
-			}
-		});
 }
