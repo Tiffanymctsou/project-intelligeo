@@ -286,7 +286,7 @@ const sendMailContent = async (name, protocol, domain, franchise_id, franchise_e
           <h3>嗨， ${name}</h3>
           <p>歡迎您的加入！</p>
           <p>請您點擊以下連結設置您的密碼：</p>
-          <p class="strong">${protocol}://${domain}/franchise/setting.html?id=${franchise_id}&uid=${hashed_email}</p>
+          <p class="strong">https://${domain}/franchise/setting.html?id=${franchise_id}&uid=${hashed_email}</p>
 			<div class="logo">
                 <a href="https://intelligeo.online"><img src="https://d2vlwc6o9qpx5r.cloudfront.net/images/admin/logo-1.png" width="200px"/></a>
         	</div>
