@@ -5,7 +5,7 @@
  * License : MIT
  * Author : blivesta (http://blivesta.com/)
  */
-;(function (factory) {
+(function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);

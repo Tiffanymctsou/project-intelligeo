@@ -36,5 +36,9 @@
     "turf": "^3.0.14",
     "util": "^0.12.3",
     "validator": "^13.1.17"
+  },
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "prettier": "^2.2.1"
   }
 }

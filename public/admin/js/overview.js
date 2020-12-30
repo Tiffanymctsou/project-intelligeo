@@ -65,5 +65,7 @@ function calUpdatedAmount(tag, value) {
 	const currentAmount = document.getElementById(tag).innerHTML;
 	const currentIntAmount = parseInt(currentAmount.replace(',', ''));
 	const updatedAmount = currentIntAmount + value;
+	console.log(currentAmount);
+	console.log(currentIntAmount);
 	return updatedAmount;
 }

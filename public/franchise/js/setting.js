@@ -9,7 +9,7 @@ if (!id || !uid) {
 } else {
 	axios
 		.get(`${protocol}//${domain}/franchise/verifySetting`, {
-			params: { id: id, uid: uid },
+			params: { id: id, uid: uid }
 		})
 		.then((response) => {
 			// ADD ALERT TO SET PASSWORD
@@ -33,11 +33,11 @@ function setPassword() {
 		return;
 	} else {
 		const data = {
-			password: password,
+			password: password
 		};
 		axios
-			.post(`${protocol}//${domain}/franchise/setAccount`, data, {
-				params: { id: id },
+			.patch(`${protocol}//${domain}/franchise/setAccount`, data, {
+				params: { id: id }
 			})
 			.then((response) => {
 				if (response.status == 200) {
@@ -46,7 +46,7 @@ function setPassword() {
 						icon: 'success',
 						title: '回報成功',
 						showConfirmButton: false,
-						timer: 1500,
+						timer: 1500
 					});
 					setTimeout(function () {
 						window.location.href = '/franchise/login.html';

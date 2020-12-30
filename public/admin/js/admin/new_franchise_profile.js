@@ -21,7 +21,7 @@ function addFranchise() {
 		franchise_phone,
 		franchise_address,
 		franchise_location,
-		coordinates,
+		coordinates
 	};
 
 	// console.log(franchiseInfo)
@@ -37,17 +37,18 @@ function addFranchise() {
 				title: '添加成功',
 				text: '請營業夥伴查看郵件設置密碼！',
 				showConfirmButton: false,
-				timer: 1500,
+				timer: 1500
 			});
 			setTimeout(function () {
 				window.location.replace('/admin/allFranchise.html');
 			}, 1500);
 		})
 		.catch((error) => {
+			console.log(error);
 			Swal.fire({
 				icon: 'error',
 				title: 'Ooops！',
-				text: '好像哪裡出錯了！請重新再試！',
+				text: '好像哪裡出錯了！請重新再試！'
 			});
 		});
 }

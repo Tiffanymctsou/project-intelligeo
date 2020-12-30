@@ -6,10 +6,10 @@ let unreported;
 
 userRequest
 	.get(`${protocol}//${domain}/franchise/getOpenStatus`)
-	.then(response => {
+	.then((response) => {
 		return response.data.data;
 	})
-	.then(openStatus => {
+	.then((openStatus) => {
 		const { franchise_id } = openStatus;
 		const openLogs = openStatus.open_log;
 		const openLog = openLogs[0];
@@ -29,7 +29,7 @@ userRequest
 		}
 		return { franchise_id, openLog, unreportedLogs };
 	})
-	.then(openStatus => {
+	.then((openStatus) => {
 		console.log(status);
 		switch (status) {
 			case 'unreported': {
@@ -100,7 +100,7 @@ userRequest
 		}
 		return openStatus.unreportedLogs;
 	})
-	.then(unreportedLogs => {
+	.then((unreportedLogs) => {
 		console.log(unreportedLogs);
 		if (unreportedLogs.length != 0) {
 			for (let i = 0; i < unreportedLogs.length; i++) {
@@ -111,7 +111,7 @@ userRequest
 		}
 		const reportBtns = document.querySelectorAll('.report-report');
 		if (reportBtns) {
-			reportBtns.forEach(btn => {
+			reportBtns.forEach((btn) => {
 				btn.addEventListener('click', reportSales);
 			});
 		}
@@ -122,7 +122,7 @@ userRequest
 			document.getElementById('report-relax').disabled = true;
 		}
 	})
-	.catch(err => {
+	.catch((err) => {
 		console.log(err);
 		const error = err.response;
 		console.log(err.response);
@@ -143,29 +143,29 @@ async function reportLocation(clicked_id) {
 				text: '請將「縣市」、「區域」、「街道路名」、「巷弄號」清楚告知哦！',
 				input: 'text',
 				inputAttributes: {
-					autocapitalize: 'off',
+					autocapitalize: 'off'
 				},
 				showCancelButton: true,
 				confirmButtonText: '確認',
 				cancelButtonText: '取消',
 				showLoaderOnConfirm: true,
-				inputValidator: value => {
+				inputValidator: (value) => {
 					if (!value) {
 						return '請輸入地址！';
 					}
 				},
-				preConfirm: location => {
+				preConfirm: (location) => {
 					openInfo.status = 1;
 					openInfo.location = location;
 					return userRequest
-						.post(`${protocol}//${domain}/franchise/updateOpenStatus`, openInfo)
-						.then(response => {
+						.patch(`${protocol}//${domain}/franchise/updateOpenStatus`, openInfo)
+						.then((response) => {
 							const reportResult = response.data.data;
 							console.log(reportResult);
 							socket.emit('report-status', reportResult);
 							console.log(response.data.msg);
 						})
-						.catch(err => {
+						.catch((err) => {
 							const error = err.response;
 							console.log(err.response);
 							if (error.status == 403 && error.data.msg == 'jwt expired') {
@@ -173,11 +173,11 @@ async function reportLocation(clicked_id) {
 							}
 						});
 				},
-				allowOutsideClick: () => !Swal.isLoading(),
-			}).then(result => {
+				allowOutsideClick: () => !Swal.isLoading()
+			}).then((result) => {
 				if (result.isConfirmed) {
 					successReport();
-					setTimeout(function() {
+					setTimeout(function () {
 						location.reload();
 					}, 1500);
 				}
@@ -187,17 +187,17 @@ async function reportLocation(clicked_id) {
 		case 'report-relax': {
 			openInfo.status = 0;
 			await userRequest
-				.post(`${protocol}//${domain}/franchise/updateOpenStatus`, openInfo)
-				.then(response => {
+				.patch(`${protocol}//${domain}/franchise/updateOpenStatus`, openInfo)
+				.then((response) => {
 					const reportResult = response.data.data;
 					console.log(reportResult);
 					socket.emit('report-status', reportResult);
 					successReport();
-					setTimeout(function() {
+					setTimeout(function () {
 						location.reload();
 					}, 1500);
 				})
-				.catch(err => {
+				.catch((err) => {
 					const error = err.response;
 					console.log(error);
 					if (error.status == 403 && error.data.msg == 'jwt expired') {

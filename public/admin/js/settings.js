@@ -38,7 +38,7 @@ quixSettings.prototype.manageVersion = function() {
         default: 
             body.attr("data-theme-version", "light");
     }
-}
+};
 
 quixSettings.prototype.manageLayout = function() {
     switch(this.layout) {
@@ -52,7 +52,7 @@ quixSettings.prototype.manageLayout = function() {
         default:
             body.attr("data-layout", "vertical");
     }
-}
+};
 
 quixSettings.prototype.manageNavHeaderBg = function() {
     switch(this.navheaderBg) {
@@ -89,7 +89,7 @@ quixSettings.prototype.manageNavHeaderBg = function() {
         default:
             body.attr("data-nav-headerbg", "color_1");
     }
-}
+};
 
 quixSettings.prototype.manageHeaderBg = function() {
     switch(this.headerBg) {
@@ -126,7 +126,7 @@ quixSettings.prototype.manageHeaderBg = function() {
         default:
             body.attr("data-headerbg", "color_1");
     }
-}
+};
 
 quixSettings.prototype.manageSidebarStyle = function() {
     switch(this.sidebarStyle) {
@@ -145,7 +145,7 @@ quixSettings.prototype.manageSidebarStyle = function() {
         default:
             body.attr("data-sidebar-style", "full");
     }
-}
+};
 
 quixSettings.prototype.manageSidebarBg = function() {
     switch(this.sidebarBg) {
@@ -182,7 +182,7 @@ quixSettings.prototype.manageSidebarBg = function() {
         default:
             body.attr("data-sibebarbg", "color_1");
     }
-}
+};
 
 quixSettings.prototype.manageSidebarPosition = function() {
     switch(this.sidebarPosition) {
@@ -195,7 +195,7 @@ quixSettings.prototype.manageSidebarPosition = function() {
         default: 
             body.attr("data-sidebar-position", "static");       
     }
-}
+};
 
 quixSettings.prototype.manageHeaderPosition = function() {
     switch(this.headerPosition) {
@@ -208,7 +208,7 @@ quixSettings.prototype.manageHeaderPosition = function() {
         default: 
             body.attr("data-header-position", "static");       
     }
-}
+};
 
 quixSettings.prototype.manageContainerLayout = function() {
     switch(this.containerLayout) {
@@ -224,7 +224,7 @@ quixSettings.prototype.manageContainerLayout = function() {
         default:
             body.attr("data-container", "wide");
     }
-}
+};
 
 quixSettings.prototype.manageRtlLayout = function() {
     switch(this.direction) {
@@ -242,7 +242,7 @@ quixSettings.prototype.manageRtlLayout = function() {
             html.attr("dir", "ltr");
             body.attr("direction", "ltr");
     }
-}
+};
 
 quixSettings.prototype.manageResponsiveSidebar = function() {
     const innerWidth = $(window).innerWidth();
@@ -258,4 +258,4 @@ quixSettings.prototype.manageResponsiveSidebar = function() {
     if(innerWidth < 768) {
         body.attr("data-sidebar-style", "overlay");
     }
-}
+};

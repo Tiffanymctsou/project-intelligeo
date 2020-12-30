@@ -1,8 +1,8 @@
 const { transaction, commit, rollback, query } = require('./mysqlcon');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const salt = parseInt(process.env.BCRYPT_SALT);
 const secret = process.env.JWT_SECRET;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const moment = require('moment-timezone');
 
 const verifySetting = async (id, uid) => {
@@ -55,7 +55,8 @@ const nativeLogin = async (account, password, expire) => {
 		const queryStr = 'UPDATE user SET login_at = ? WHERE account = ?';
 		await query(queryStr, [loginAt, account]);
 		await commit();
-		const accessToken = 'Bearer ' + jwt.sign({ account: account, password: password }, secret, { expiresIn: expire });
+		const accessToken =
+			'Bearer ' + jwt.sign({ account: account, password: password }, secret, { expiresIn: expire });
 		return { account, accessToken, loginAt };
 	} catch (error) {
 		await rollback();
@@ -75,9 +76,10 @@ const getLocationRecord = async (franchise_id) => {
 		return { error };
 	}
 };
-const getUnreported = async (franchise_id, today) => {
+const getUnreported = async (franchise_id) => {
 	try {
 		await transaction();
+		const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
 		const sqlQuery = `SELECT id, open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time FROM open_log
         WHERE franchise_id = ? AND open_location <> ? AND report_date < ? AND open_status = ? AND report_status = ? ORDER BY report_date`;
 		const unreportedLog = await query(sqlQuery, [franchise_id, '-', today, 2, 0]);
@@ -89,9 +91,10 @@ const getUnreported = async (franchise_id, today) => {
 	}
 };
 
-const getOpen = async (franchise_id, today) => {
+const getOpen = async (franchise_id) => {
 	try {
 		await transaction();
+		const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
 		const sqlQuery = `SELECT id, open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time, open_status, report_status FROM open_log 
         WHERE franchise_id = ? AND report_date = ?;`;
 		const openLog = await query(sqlQuery, [franchise_id, today]);
@@ -106,17 +109,17 @@ const getOpen = async (franchise_id, today) => {
 const updateOpenStatus = async (franchise_id, location, status) => {
 	try {
 		await transaction();
-		const date = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
+		const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
 		const time = moment.tz('Asia/Taipei').format('H:mm:ss');
 		const openLog = {
 			franchise_id: franchise_id,
 			open_location: location,
-			report_date: date,
+			report_date: today,
 			open_time: time,
 			close_time: null,
 			open_status: status,
 			report_status: 0,
-			report_time: null,
+			report_time: null
 		};
 		const sqlQuery = 'INSERT INTO open_log SET ?';
 		const result = await query(sqlQuery, openLog);
@@ -140,7 +143,7 @@ const reportClose = async (status, log_id) => {
 		await commit();
 		return {
 			data: { log_id, status, time },
-			msg: 'Open Status Successfully Updated!',
+			msg: 'Open Status Successfully Updated!'
 		};
 	} catch (error) {
 		await rollback();
@@ -153,7 +156,7 @@ const reportSales = async (log_id, amount) => {
 		await transaction();
 		const salesInfo = {
 			log_id: log_id,
-			amount: amount,
+			amount: amount
 		};
 		const time = moment.tz('Asia/Taipei').format('H:mm:ss');
 		const updateSql = 'UPDATE open_log SET report_status = ?, report_time = ? WHERE id = ?';
@@ -181,5 +184,5 @@ module.exports = {
 	getLocationRecord,
 	updateOpenStatus,
 	reportClose,
-	reportSales,
+	reportSales
 };

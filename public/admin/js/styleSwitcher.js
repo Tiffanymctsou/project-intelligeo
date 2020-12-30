@@ -1,5 +1,5 @@
 (function($) {
-    "use strict"
+    "use strict";
 
     const versionSelect = $('#theme_version');
     const layoutSelect = $('#theme_layout');

@@ -1,7 +1,14 @@
 const router = require('express').Router();
 const { wrapAsync } = require('../../util/util');
 
-const { getSelectedLocation, addFranchise, getLocationPop, getFranchise, getLocationSpot, getFranchiseArea } = require('../controllers/admin_controller');
+const {
+	getSelectedLocation,
+	addFranchise,
+	getLocationPop,
+	getFranchise,
+	getLocationSpot,
+	getFranchiseArea
+} = require('../controllers/admin_controller');
 
 const { getReportStatus, getOverviewData, getChart } = require('../controllers/dashboard_controller');
 

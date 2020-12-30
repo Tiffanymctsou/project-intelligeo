@@ -1,6 +1,6 @@
 
 (function($) {
-    "use strict"
+    "use strict";
 
     new quixSettings({
         version: "light", //2 options "light" and "dark"

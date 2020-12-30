@@ -1,7 +1,7 @@
 function enterpriseLogin() {
-    window.location.href = './login.html'
+    window.location.href = './login.html';
 }
 
 function franchiseLogin() {
-    window.location.href = './franchise/login.html'
+    window.location.href = './franchise/login.html';
 }

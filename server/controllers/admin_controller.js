@@ -1,16 +1,14 @@
 require('dotenv').config();
+const salt = parseInt(process.env.BCRYPT_SALT);
 const validator = require('validator');
-const Admin = require('../models/admin_model');
 const turf = require('turf');
-const axios = require('axios');
-const moment = require('moment-timezone');
-const util = require('../../util/util');
 const bcrypt = require('bcrypt');
 const inLineCss = require('nodemailer-juice');
-const salt = parseInt(process.env.BCRYPT_SALT);
 const cityGeo = require('../../util/city_bound.json');
 const townGeo = require('../../util/town_bound.json');
 const villageGeo = require('../../util/village_bound.json');
+const Util = require('../../util/util');
+const Admin = require('../models/admin_model');
 
 const getLocationPop = async (req, res) => {
 	const { coordinates } = req.body;
@@ -58,7 +56,6 @@ const getLocationPop = async (req, res) => {
 						// intersection: intersection,
 						ratio: ratio,
 					};
-					// console.log(info);
 					intersections.push(info);
 					villageCodes.push(village.properties.VILLCODE);
 				}
@@ -66,9 +63,7 @@ const getLocationPop = async (req, res) => {
 		});
 	});
 
-	// Get and calculate population data
 	const villageInfo = await Admin.getVillagePop(villageCodes);
-	// console.log(villageInfo)
 	let household_no = 0;
 	let ppl_total = 0;
 	let ppl_total_m = 0;
@@ -104,7 +99,6 @@ const getLocationSpot = async (req, res) => {
 	const west = coordinates.sw.lng;
 	const north = coordinates.ne.lat;
 	const east = coordinates.ne.lng;
-	// poi
 	const spots = [];
 	for (let i = 0; i < poi.length; i++) {
 		const spot = await Admin.getMarker(poi[i], south, west, north, east);
@@ -182,49 +176,24 @@ const getSelectedLocation = async (req, res) => {
 const addFranchise = async (req, res) => {
 	const protocol = req.protocol;
 	const domain = req.get('host');
-	const {
-		franchise_id,
-		franchise_fullname,
-		franchise_city,
-		franchise_email,
-		franchise_phone,
-		franchise_address,
-		franchise_location,
-		coordinates,
-	} = req.body;
+	const { franchise_id, franchise_fullname, franchise_city, franchise_email, franchise_phone, franchise_address, franchise_location, coordinates } = req.body;
 
-	// if (!name || !email) {
-	//     res.status(400).send({ error: 'Request Error: name and email are required.' });
-	//     return;
-	// }
-
-	// if (!validator.isEmail(email)) {
-	//     res.status(400).send({ error: 'Request Error: Invalid email format' });
-	//     return;
-	// }
-
-	// name = validator.escape(name);
-	const join_date = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
-	const result = await Admin.addFranchise(
-		franchise_id,
-		franchise_fullname,
-		franchise_city,
-		franchise_email,
-		franchise_phone,
-		franchise_address,
-		franchise_location,
-		coordinates,
-		join_date
-	);
-	const user = await Admin.createAccount(franchise_id, franchise_email);
-
-	if (result.error) {
-		res.status(403).send({ error: result.error });
+	if (!franchise_fullname || !franchise_email) {
+		res.status(400).send({ error: 'Request Error: name and email are required.' });
 		return;
 	}
 
-	if (user.error) {
-		res.status(403).send({ error: user.error });
+	if (!validator.isEmail(franchise_email)) {
+		res.status(400).send({ error: 'Request Error: Invalid email format' });
+		return;
+	}
+
+	const result = await Admin.addFranchise(franchise_id, franchise_fullname, franchise_city, franchise_email, franchise_phone, franchise_address, franchise_location, coordinates);
+
+	await Admin.createAccount(franchise_id, franchise_email);
+
+	if (result.error) {
+		res.status(403).send({ error: result.error });
 		return;
 	}
 
@@ -235,18 +204,14 @@ const addFranchise = async (req, res) => {
 		subject: '完成您的密碼設置',
 		html: await sendMailContent(franchise_fullname, protocol, domain, franchise_id, franchise_email),
 	};
-	util.transporter.use('compile', inLineCss());
-	if (validator.isEmail(franchise_email)) {
-		util.transporter.sendMail(mailOptions, function (err, info) {
-			if (err) {
-				return console.log(err);
-			}
-			return console.log('Email sent: ' + info.response);
-		});
-	}
-	res.status(200).send({
-		data: { msg: 'Please check your email!' },
+	Util.transporter.use('compile', inLineCss());
+	Util.transporter.sendMail(mailOptions, function (err, info) {
+		if (err) {
+			return console.log(err);
+		}
+		return console.log('Email sent: ' + info.response);
 	});
+	res.status(200).send({ msg: 'Success!' });
 };
 
 const sendMailContent = async (name, protocol, domain, franchise_id, franchise_email) => {
@@ -298,18 +263,11 @@ const sendMailContent = async (name, protocol, domain, franchise_id, franchise_e
 
 const getFranchise = async (req, res) => {
 	const result = await Admin.getFranchise();
-	console.log(result);
-
-	res.status(200).send({
-		data: {
-			result,
-		},
-	});
+	res.status(200).send(result);
 };
 
 const getReportStatus = async (req, res) => {
-	const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
-	const result = await Admin.getReportStatus(today);
+	const result = await Admin.getReportStatus();
 	res.status(200).send(result);
 };
 

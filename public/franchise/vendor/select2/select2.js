@@ -5237,10 +5237,8 @@ S2.define('select2/core',[
 
     var observer = window.MutationObserver ||
       window.WebKitMutationObserver ||
-      window.MozMutationObserver
-    ;
-
-    if (observer != null) {
+      window.MozMutationObserver;
+if (observer != null) {
       this._observer = new observer(function (mutations) {
         $.each(mutations, self._syncA);
         $.each(mutations, self._syncS);
