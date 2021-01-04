@@ -13,24 +13,20 @@ app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // API routes
-app.use('/',
-    [
-        require('./server/routes/admin_route'),
-        require('./server/routes/franchise_route')
-    ]
-);
+app.use('/', [
+	require('./server/routes/admin_route'),
+	require('./server/routes/franchise_route'),
+	require('./server/routes/enterprise_route')
+]);
 
 app.use(function (req, res, next) {
-    res.status(404).sendFile(__dirname + '/public/404.html');
+	res.status(404).sendFile(__dirname + '/public/404.html');
 });
 
 // Error handling
 app.use(function (err, req, res, next) {
-    console.log(err);
-    res.status(500).send('Internal Server Error');
+	console.log(err);
+	res.status(500).send('Internal Server Error');
 });
 
-server.listen('3000', () =>
-    console.log('Oh yes! Server is running!')
-);
-
+server.listen('3000', () => console.log('Oh yes! Server is running!'));

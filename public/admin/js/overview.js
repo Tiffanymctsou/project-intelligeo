@@ -8,7 +8,7 @@ let newFranchiseCountUp;
 let allFranchiseCountUp;
 
 // overview
-axios.get(`${protocol}//${domain}/admin/getOverviewData`).then((response) => {
+userRequest.get(`${protocol}//${domain}/admin/getOverviewData`).then((response) => {
 	const overviewData = response.data;
 	console.log(overviewData);
 	dailySalesCountUp = new CountUp('daily-sales', overviewData.dailySales.total_sales);

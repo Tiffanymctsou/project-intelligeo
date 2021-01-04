@@ -27,7 +27,7 @@ const nativeLogin = async (req, res) => {
 	const { account, password } = req.body;
 	const result = await Franchise.nativeLogin(account, password, expire);
 	if (result.error) {
-		res.status(403).send({ error: result.error });
+		res.status(403).send(result.error);
 		return;
 	}
 	res.status(200).send({ data: result });

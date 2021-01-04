@@ -10,16 +10,16 @@ const verifySetting = async (id, uid) => {
 		await transaction();
 
 		const user = await query('SELECT email, password FROM user WHERE account = ?', [id]);
-		const user_email = user[0].email;
-		const user_password = user[0].password;
+		const userEmail = user[0].email;
+		const userPassword = user[0].password;
 
 		if (user.length == null) {
 			return { error: 'Account Does Not Exist!' };
-		} else if (!bcrypt.compareSync(user_email, uid)) {
+		} else if (!bcrypt.compareSync(userEmail, uid)) {
 			return { error: 'Incorrect uid!' };
-		} else if (user_password != null) {
+		} else if (userPassword != null) {
 			return { error: 'You have already completed Account Setting!' };
-		} else if (user_password == null) {
+		} else if (userPassword == null) {
 			return { msg: 'Account Setting Verified!' };
 		}
 	} catch (error) {
@@ -31,9 +31,9 @@ const verifySetting = async (id, uid) => {
 const setAccount = async (id, password) => {
 	try {
 		await transaction();
-		const hashed_pwd = bcrypt.hashSync(password, salt);
+		const hashedPassword = bcrypt.hashSync(password, salt);
 		const sqlQuery = 'UPDATE user SET password = ? WHERE account = ?;';
-		await query(sqlQuery, [hashed_pwd, id]);
+		await query(sqlQuery, [hashedPassword, id]);
 		await commit();
 		return { msg: 'Account Setting Completed' };
 	} catch (error) {
@@ -46,10 +46,12 @@ const nativeLogin = async (account, password, expire) => {
 	try {
 		await transaction();
 		const user = await query('SELECT password FROM user WHERE account = ?', [account]);
-		const user_password = user[0].password;
-		if (!bcrypt.compareSync(password, user_password)) {
+		const userPassword = user[0].password;
+		if (user.length == 0) {
+			return { error: '用戶不存在！' };
+		} else if (!bcrypt.compareSync(password, userPassword)) {
 			await commit();
-			return { error: 'Incorrect Password!' };
+			return { error: '密碼錯誤！' };
 		}
 		const loginAt = moment.tz('Asia/Taipei').format('YYYY-MM-DD H:mm:ss');
 		const queryStr = 'UPDATE user SET login_at = ? WHERE account = ?';
@@ -63,6 +65,7 @@ const nativeLogin = async (account, password, expire) => {
 		return { error };
 	}
 };
+
 const getLocationRecord = async (franchise_id) => {
 	try {
 		await transaction();

@@ -15,8 +15,8 @@ async function getTowns(index) {
 				town_code: town.town_code,
 				centre: {
 					lat: town.lat,
-					lng: town.lng,
-				},
+					lng: town.lng
+				}
 			};
 			townInfo.push(info);
 		}
@@ -76,7 +76,7 @@ function initMap() {
 			selectedShape.setMap(null);
 			// To show:
 			drawingManager.setOptions({
-				drawingControl: true,
+				drawingControl: true
 			});
 			drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
 			infoWindow.close();
@@ -110,7 +110,7 @@ function initMap() {
 			center: new google.maps.LatLng(25.0409, 121.572),
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			disableDefaultUI: true,
-			zoomControl: true,
+			zoomControl: true
 		});
 		// change centre
 		async function moveCentre() {
@@ -126,17 +126,19 @@ function initMap() {
 			if (poi.length !== 0) {
 				const coordinates = {
 					sw: { lat: map.getBounds().getSouthWest().lat(), lng: map.getBounds().getSouthWest().lng() },
-					ne: { lat: map.getBounds().getNorthEast().lat(), lng: map.getBounds().getNorthEast().lng() },
+					ne: { lat: map.getBounds().getNorthEast().lat(), lng: map.getBounds().getNorthEast().lng() }
 				};
 				const spotData = {
 					coordinates: coordinates,
-					poi: poi,
+					poi: poi
 				};
 
-				const locationSpot = await axios.post(`${protocol}//${domain}/admin/getLocationSpot`, spotData).then((response) => {
-					const data = response.data.data;
-					return data;
-				});
+				const locationSpot = await userRequest
+					.post(`${protocol}//${domain}/admin/getLocationSpot`, spotData)
+					.then((response) => {
+						const data = response.data.data;
+						return data;
+					});
 				return locationSpot;
 			}
 		}
@@ -166,13 +168,13 @@ function initMap() {
 							position: spot.location,
 							icon: {
 								url: `${protocol}//${domain}${spot.icon}`,
-								scaledSize: new google.maps.Size(20, 20),
+								scaledSize: new google.maps.Size(20, 20)
 							},
-							map: map,
+							map: map
 						});
 						const markerObj = {
 							poi: spot.poi,
-							marker: marker,
+							marker: marker
 						};
 						poiMarkers.push(markerObj);
 					});
@@ -192,10 +194,12 @@ function initMap() {
 
 		// franchise switch
 		async function loadFranchise() {
-			const franchiseArea = await axios.get(`${protocol}//${domain}/admin/getFranchiseArea`).then((response) => {
-				const data = response.data.data;
-				return data;
-			});
+			const franchiseArea = await userRequest
+				.get(`${protocol}//${domain}/admin/getFranchiseArea`)
+				.then((response) => {
+					const data = response.data.data;
+					return data;
+				});
 			return franchiseArea;
 		}
 		async function checkSwitch() {
@@ -216,7 +220,7 @@ function initMap() {
 						strokeWeight: 2,
 						fillColor: '#FFAF60',
 						fillOpacity: 0.5,
-						map: map,
+						map: map
 					});
 					const info = `<div id="content">${franchise.name}</div>`;
 					showAreaInfo(area, info, map);
@@ -231,13 +235,13 @@ function initMap() {
 				infoWindow.setContent(info);
 				infoWindow.setPosition(event.latLng);
 				area.setOptions({
-					fillColor: '#FFD306',
+					fillColor: '#FFD306'
 				});
 				infoWindow.open(map);
 			});
 			google.maps.event.addListener(area, 'mouseout', (event) => {
 				area.setOptions({
-					fillColor: '#FFAF60',
+					fillColor: '#FFAF60'
 				});
 				infoWindow.close();
 			});
@@ -260,9 +264,9 @@ function initMap() {
 			const coordinates = await getShapeCoordinates(shape);
 			document.getElementById('loading-map').style.display = 'flex';
 			const locationData = {
-				coordinates: coordinates,
+				coordinates: coordinates
 			};
-			const location = await axios
+			const location = await userRequest
 				.post(`${protocol}//${domain}/admin/getLocationPop`, locationData)
 				.then((response) => {
 					const data = response.data.data;
@@ -272,13 +276,13 @@ function initMap() {
 					Swal.fire({
 						icon: 'error',
 						title: 'Ooops！',
-						text: '圖形無效，請重新繪製！',
+						text: '圖形無效，請重新繪製！'
 					}).then(() => {
 						document.getElementById('loading-map').style.display = 'none';
 						selectedShape.setMap(null);
 						// To show:
 						drawingManager.setOptions({
-							drawingControl: true,
+							drawingControl: true
 						});
 						drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
 					});
@@ -302,11 +306,11 @@ function initMap() {
                         </div>`;
 			content = popData + addBtn + removeBtn;
 			infoWindow = new google.maps.InfoWindow({
-				content: content,
+				content: content
 			});
 			infoMarker = new google.maps.Marker({
 				map: map,
-				position: { lat: location.spotCentre[1], lng: location.spotCentre[0] },
+				position: { lat: location.spotCentre[1], lng: location.spotCentre[0] }
 			});
 
 			document.getElementById('loading-map').style.display = 'none';
@@ -337,24 +341,24 @@ function initMap() {
 				position: google.maps.ControlPosition.TOP_CENTER,
 				drawingModes: [
 					// google.maps.drawing.OverlayType.CIRCLE,
-					google.maps.drawing.OverlayType.POLYGON,
-				],
+					google.maps.drawing.OverlayType.POLYGON
+				]
 			},
 			polygonOptions: {
 				strokeWeight: 0,
 				strokeColor: '#361cc1',
 				fillColor: '#361cc1',
 				fillOpacity: 0.3,
-				editable: true,
+				editable: true
 			},
-			map: map,
+			map: map
 		});
 
 		google.maps.event.addListener(drawingManager, 'overlaycomplete', async function (e) {
 			if (e.type != google.maps.drawing.OverlayType.MARKER) {
 				drawingManager.setDrawingMode(null);
 				drawingManager.setOptions({
-					drawingControl: false,
+					drawingControl: false
 				});
 				let newShape = e.overlay;
 				newShape.type = e.type;

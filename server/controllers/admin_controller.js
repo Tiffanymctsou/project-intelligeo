@@ -1,8 +1,11 @@
 require('dotenv').config();
 const salt = parseInt(process.env.BCRYPT_SALT);
+const secret = process.env.JWT_SECRET;
+const expire = process.env.TOKEN_EXPIRE;
 const validator = require('validator');
 const turf = require('turf');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const inLineCss = require('nodemailer-juice');
 const cityGeo = require('../../util/city_bound.json');
 const townGeo = require('../../util/town_bound.json');
@@ -54,7 +57,7 @@ const getLocationPop = async (req, res) => {
 						village_code: village.properties.VILLCODE,
 						// village_area: villageArea,
 						// intersection: intersection,
-						ratio: ratio,
+						ratio: ratio
 					};
 					intersections.push(info);
 					villageCodes.push(village.properties.VILLCODE);
@@ -72,7 +75,7 @@ const getLocationPop = async (req, res) => {
 		household_no,
 		ppl_total,
 		ppl_total_m,
-		ppl_total_f,
+		ppl_total_f
 	};
 	for (let i = 0; i < villageInfo.length; i++) {
 		const village = villageInfo[i];
@@ -88,8 +91,8 @@ const getLocationPop = async (req, res) => {
 	res.status(200).send({
 		data: {
 			locationPop,
-			spotCentre,
-		},
+			spotCentre
+		}
 	});
 };
 
@@ -109,8 +112,8 @@ const getLocationSpot = async (req, res) => {
 				icon: point.icon_path,
 				location: {
 					lat: point.lat,
-					lng: point.lng,
-				},
+					lng: point.lng
+				}
 			};
 			spotInfo.push(info);
 		});
@@ -119,8 +122,8 @@ const getLocationSpot = async (req, res) => {
 
 	res.status(200).send({
 		data: {
-			spots,
-		},
+			spots
+		}
 	});
 };
 
@@ -130,13 +133,13 @@ const getFranchiseArea = async (req, res) => {
 	for (let i = 0; i < franchises.length; i++) {
 		const franchise = {
 			name: franchises[i].fullname,
-			area: [],
+			area: []
 		};
 		const area = await alterCoordinates(JSON.parse(franchises[i].area));
 		area.forEach((coordinate) => {
 			const latLng = {
 				lat: coordinate[1],
-				lng: coordinate[0],
+				lng: coordinate[0]
 			};
 			franchise.area.push(latLng);
 		});
@@ -145,8 +148,8 @@ const getFranchiseArea = async (req, res) => {
 
 	res.status(200).send({
 		data: {
-			franchiseArea,
-		},
+			franchiseArea
+		}
 	});
 };
 
@@ -168,15 +171,23 @@ const getSelectedLocation = async (req, res) => {
 	const { coordinate } = result.townInfo[0];
 	res.status(200).send({
 		data: {
-			coordinate: JSON.parse(coordinate),
-		},
+			coordinate: JSON.parse(coordinate)
+		}
 	});
 };
 
 const addFranchise = async (req, res) => {
-	const protocol = req.protocol;
 	const domain = req.get('host');
-	const { franchise_id, franchise_fullname, franchise_city, franchise_email, franchise_phone, franchise_address, franchise_location, coordinates } = req.body;
+	const {
+		franchise_id,
+		franchise_fullname,
+		franchise_city,
+		franchise_email,
+		franchise_phone,
+		franchise_address,
+		franchise_location,
+		coordinates
+	} = req.body;
 
 	if (!franchise_fullname || !franchise_email) {
 		res.status(400).send({ error: 'Request Error: name and email are required.' });
@@ -188,7 +199,16 @@ const addFranchise = async (req, res) => {
 		return;
 	}
 
-	const result = await Admin.addFranchise(franchise_id, franchise_fullname, franchise_city, franchise_email, franchise_phone, franchise_address, franchise_location, coordinates);
+	const result = await Admin.addFranchise(
+		franchise_id,
+		franchise_fullname,
+		franchise_city,
+		franchise_email,
+		franchise_phone,
+		franchise_address,
+		franchise_location,
+		coordinates
+	);
 
 	await Admin.createAccount(franchise_id, franchise_email);
 
@@ -202,7 +222,7 @@ const addFranchise = async (req, res) => {
 		to: `${franchise_fullname} <${franchise_email}>`,
 		cc: 'intelligeo.tw@gmail.com',
 		subject: '完成您的密碼設置',
-		html: await sendMailContent(franchise_fullname, protocol, domain, franchise_id, franchise_email),
+		html: await sendMailContent(franchise_fullname, domain, franchise_id, franchise_email)
 	};
 	Util.transporter.use('compile', inLineCss());
 	Util.transporter.sendMail(mailOptions, function (err, info) {
@@ -214,7 +234,7 @@ const addFranchise = async (req, res) => {
 	res.status(200).send({ msg: 'Success!' });
 };
 
-const sendMailContent = async (name, protocol, domain, franchise_id, franchise_email) => {
+const sendMailContent = async (name, domain, franchise_id, franchise_email) => {
 	const hashed_email = bcrypt.hashSync(franchise_email, salt);
 	return `
     <html>
@@ -278,5 +298,5 @@ module.exports = {
 	getFranchise,
 	getLocationSpot,
 	getFranchiseArea,
-	getReportStatus,
+	getReportStatus
 };

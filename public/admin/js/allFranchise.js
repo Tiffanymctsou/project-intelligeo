@@ -2,7 +2,7 @@ const protocol = window.location.protocol;
 const domain = window.location.host;
 
 async function getAllFranchise() {
-	const franchises = await axios.get(`${protocol}//${domain}/admin/getFranchise`).then((response) => {
+	const franchises = await userRequest.get(`${protocol}//${domain}/admin/getFranchise`).then((response) => {
 		const data = response.data.result.franchises;
 		return data;
 	});

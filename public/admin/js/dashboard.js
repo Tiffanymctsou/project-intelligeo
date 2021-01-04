@@ -10,7 +10,7 @@ dateP.id = 'today-date';
 dateP.textContent = todayIs;
 statusDiv.appendChild(dateP);
 
-axios.get(`${protocol}//${domain}/admin/getReportStatus`).then((response) => {
+userRequest.get(`${protocol}//${domain}/admin/getReportStatus`).then((response) => {
 	const statusData = response.data;
 	if (statusData.length == 0) {
 		const tableDiv = document.getElementById('dashboard-status-table');
@@ -28,9 +28,29 @@ axios.get(`${protocol}//${domain}/admin/getReportStatus`).then((response) => {
 			if (open_status == 'relax') {
 				open_time = '-';
 				report_status = 'noreport';
-				createStatus(id, franchise_id, fullname, open_location, open_status, open_time, close_time, report_status, report_time);
+				createStatus(
+					id,
+					franchise_id,
+					fullname,
+					open_location,
+					open_status,
+					open_time,
+					close_time,
+					report_status,
+					report_time
+				);
 			} else {
-				createStatus(id, franchise_id, fullname, open_location, open_status, open_time, close_time, report_status, report_time);
+				createStatus(
+					id,
+					franchise_id,
+					fullname,
+					open_location,
+					open_status,
+					open_time,
+					close_time,
+					report_status,
+					report_time
+				);
 			}
 		});
 	}
@@ -49,9 +69,29 @@ socket.on('report-status', (newStatus) => {
 	if (open_status == 'relax') {
 		open_time = '-';
 		report_status = 'noreport';
-		createStatus(log_id, franchise_id, fullname, open_location, open_status, open_time, close_time, report_status, report_time);
+		createStatus(
+			log_id,
+			franchise_id,
+			fullname,
+			open_location,
+			open_status,
+			open_time,
+			close_time,
+			report_status,
+			report_time
+		);
 	} else {
-		createStatus(log_id, franchise_id, fullname, open_location, open_status, open_time, close_time, report_status, report_time);
+		createStatus(
+			log_id,
+			franchise_id,
+			fullname,
+			open_location,
+			open_status,
+			open_time,
+			close_time,
+			report_status,
+			report_time
+		);
 	}
 	console.log(newStatus);
 });

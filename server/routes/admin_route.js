@@ -11,6 +11,7 @@ const {
 } = require('../controllers/admin_controller');
 
 const { getReportStatus, getOverviewData, getChart } = require('../controllers/dashboard_controller');
+const { verifyToken } = require('../controllers/enterprise_controller');
 
 router.route('/admin/getSelectedLocation').post(wrapAsync(getSelectedLocation));
 
