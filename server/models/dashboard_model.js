@@ -77,7 +77,7 @@ const getChart = async () => {
 		const dateToday = moment.tz('Asia/Taipei').date();
 		for (let d = 1; d <= dateToday; d++) {
 			if (d < 10) {
-				const day = `${currentMonth}-0${d}`;
+				const day = `0${currentMonth}-0${d}`;
 				dates.push(day);
 			} else {
 				const day = `${currentMonth}-${d}`;

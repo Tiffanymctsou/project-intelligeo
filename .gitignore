@@ -28,6 +28,7 @@ public/admin/geo/map-loading.gif
 util/city_bound.json
 util/town_bound.json
 util/village_bound.json
+util/crawler_px.py
 
 # eslint
 .eslintrc.js
