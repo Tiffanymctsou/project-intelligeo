@@ -2,8 +2,8 @@ const token = window.localStorage.Authorization;
 const userRequest = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
-		Authorization: token,
-	},
+		Authorization: token
+	}
 });
 
 if (token == null) {
@@ -15,7 +15,7 @@ function loginAgain() {
 	Swal.fire({
 		icon: 'error',
 		title: '哎呀！',
-		text: '請重新登入再試！',
+		text: '請重新登入再試！'
 	}).then(() => {
 		window.location.href = '/franchise/login.html';
 	});
@@ -27,7 +27,7 @@ function successReport() {
 		icon: 'success',
 		title: '回報成功',
 		showConfirmButton: false,
-		timer: 1500,
+		timer: 1500
 	});
 }
 
@@ -37,7 +37,7 @@ function tryAgain() {
 		title: '糟糕！',
 		text: '好像密碼出錯了！請再試一次！',
 		showConfirmButton: true,
-		confirmButtonText: '確認',
+		confirmButtonText: '確認'
 	});
 	return;
 }
@@ -162,21 +162,21 @@ function addBtn(id, status, info) {
 function reportClose(e) {
 	const log = {
 		status: 2,
-		id: e.target.id.split('-')[1],
+		id: e.target.id.split('-')[1]
 	};
 	console.log(log);
 
 	userRequest
-		.post(`${protocol}//${domain}/franchise/updateOpenStatus`, log)
-		.then(response => {
+		.patch(`${protocol}//${domain}/franchise/updateOpenStatus`, log)
+		.then((response) => {
 			const closeLog = response.data.data;
 			socket.emit('report-close', closeLog);
 			successReport();
-			setTimeout(function() {
+			setTimeout(function () {
 				location.reload();
 			}, 1500);
 		})
-		.catch(err => {
+		.catch((err) => {
 			console.log(err.response);
 		});
 }
@@ -189,33 +189,33 @@ function reportSales(e) {
 		text: '請直接輸入數字！',
 		input: 'text',
 		inputAttributes: {
-			autocapitalize: 'off',
+			autocapitalize: 'off'
 		},
 		showCancelButton: true,
 		confirmButtonText: '確認',
 		cancelButtonText: '取消',
 		showLoaderOnConfirm: true,
-		inputValidator: value => {
+		inputValidator: (value) => {
 			if (!value) {
 				return '請輸入營業額！';
 			} else if (isNaN(parseInt(value))) {
 				return '請輸入正確金額！';
 			}
 		},
-		preConfirm: sales => {
+		preConfirm: (sales) => {
 			const salesInfo = {
 				log_id: id,
-				amount: sales,
+				amount: sales
 			};
 			return userRequest
 				.post(`${protocol}//${domain}/franchise/reportSales`, salesInfo)
-				.then(response => {
+				.then((response) => {
 					const salesInfo = response.data.data;
 					console.log(salesInfo);
 					socket.emit('report-sales', salesInfo);
 					console.log(response.data.msg);
 				})
-				.catch(err => {
+				.catch((err) => {
 					const error = err.response;
 					console.log(err.response);
 					if (error.status == 403 && error.data.msg == 'jwt expired') {
@@ -223,11 +223,11 @@ function reportSales(e) {
 					}
 				});
 		},
-		allowOutsideClick: () => !Swal.isLoading(),
-	}).then(result => {
+		allowOutsideClick: () => !Swal.isLoading()
+	}).then((result) => {
 		if (result.isConfirmed) {
 			successReport();
-			setTimeout(function() {
+			setTimeout(function () {
 				location.reload();
 			}, 1500);
 		}

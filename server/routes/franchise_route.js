@@ -22,7 +22,7 @@ router.route('/franchise/getLocationRecord').get(verifyToken, wrapAsync(getLocat
 
 router.route('/franchise/getOpenStatus').get(verifyToken, wrapAsync(getOpenStatus));
 
-router.route('/franchise/updateOpenStatus').patch(verifyToken, wrapAsync(updateOpenStatus));
+router.route('/franchise/updateOpenStatus').patch(wrapAsync(updateOpenStatus));
 
 router.route('/franchise/reportSales').post(verifyToken, wrapAsync(reportSales));
 
