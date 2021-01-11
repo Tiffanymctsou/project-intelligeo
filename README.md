@@ -17,12 +17,12 @@ _An integrated management platform provides market information to assist franchi
 
 ## Contents
 
-Technologies
-Architecture
-Database Schema
-Features
-Future Features
-Contact (optional)
+-   [Technologies](#technologies)
+-   [Architecture](#architecture)
+-   [Database Design](#database-design)
+-   [Features](#features)
+-   [Future Features](#future-features)
+-   [Contact](#contact)
 
 ## Technologies
 
@@ -78,7 +78,7 @@ Contact (optional)
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/architecture.png)
 
-## Database Schema
+## Database Design
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/db_schema.png)
 
