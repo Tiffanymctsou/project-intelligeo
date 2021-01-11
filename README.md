@@ -6,27 +6,61 @@
 
 ## Demo Link
 
-🌐 **Website URL**: https://intelligeo.online
+**Website Link** 🌐: https://intelligeo.online
 
 **Test Accounts**:
 
 -   Enterprise
+    -   [Login Link](https://intelligeo.online/login.html 'Login Link') 🌐
     -   Email: intelligeo.guest@gmail.com
     -   Password: guest2021
 -   Franchise
+    -   [Login Link](https://intelligeo.online/franchise/login.html 'Login Link') 🌐
     -   Account: N002
     -   Password: N002
 
-💡 Tips ｜ default value in placeholder, able to login directly
-
 ## Contents
 
--   [Technologies](#technologies)
 -   [Architecture](#architecture)
 -   [Database Design](#database-design)
 -   [Feature Highlights](#features)
 -   [Future Features](#future-features)
+-   [Technologies](#technologies)
 -   [Contact](#contact)
+
+## Architecture
+
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/architecture.png)
+
+## Database Design
+
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/db_schema.png)
+
+## Feature Highlights
+
+### Data Visualisation
+
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/data_visualisation.gif)
+
+-   Combined multiple data sources, such as **Open Data APIs** and **Google Geocoding API**, to give an insight of target market
+-   Applied **DrawingManager** constructor from Google Map APIs for **data visualisation**
+-   Implemented **ETL process** for integrating POIs (Point of Interests) data collected from web crawler built in Python
+
+### Real-Time Reporting System and Live Dashboard
+
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/live_dashboard.gif)
+
+> _Franchise (left) and Enterprise (right) User Interface_
+
+-   Developed a **real-time dashboard** with **Socket.IO** to track operational performance and the live status of each franchise
+-   Designed a franchise reporting system to simplify the reporting process
+-   Adopted **RWD** in the reporting system with the consideration of outdoor franchisees
+
+## Future Features
+
+1. **Detection of franchise reported location** - to notice the enterprise admin when the location a franchise reported is out of the agreed area
+2. **Detection of the distance between franchises' area** - to notice the enterprise admin when the newly selected area is too close to another (distance can be set by enterprise)
+3. **Integration of stock system** - to simplify the process for franchise to place orders of ingredients; for enterprise to save time from sort all orders
 
 ## Technologies
 
@@ -78,36 +112,6 @@
 
 -   MVC Design Pattern
 -   RESTful APIs
-
-## Architecture
-
-![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/architecture.png)
-
-## Database Design
-
-![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/db_schema.png)
-
-## Feature Highlights
-
-### Data Visualisation
-
-![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/data_visualisation.gif)
-
--   **Relocate map centre** based on the selected city and district, to provide quicker access
--   Display existing franchise areas, to avoid overlaps
--   **Visualise customised POIs** (Point of Interests; pxmart in this case) location and provide population stats within the drawn polygon, to assist in making business decision
-
-### Real-Time Reporting System and Live Dashboard
-
-![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/live_dashboard.gif)
-
-> _Franchise (left) and Enterprise (right) User Interface_
-
-## Future Features
-
-1. **Detection of franchise reported location** - to notice the enterprise admin when the location a franchise reported is out of the agreed area.
-2. **Detection of the distance between franchises' area** - to notice the enterprise admin when the newly selected area is too close to another (distance can be set by enterprise)
-3. **Integration of stock system** - to simplify the process for franchise to place orders of ingredients; for enterprise to save time from sort all orders.
 
 ## Contact
 
