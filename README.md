@@ -86,6 +86,8 @@ _An integrated management platform provides market information to assist franchi
 
 #### Data Visualisation
 
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/data_visualisation.gif)
+
 #### Real-Time Reporting System and Live Dashboard
 
 ## Future Features
