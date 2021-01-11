@@ -44,7 +44,7 @@
 
 -   Combined multiple data sources, such as **Open Data APIs** and **Google Geocoding API**, to give an insight of target market
 -   Applied **DrawingManager** constructor from Google Map APIs for **data visualisation**
--   Implemented **ETL process** for integrating POIs (Point of Interests) data collected from web crawler built in Python
+-   Implemented **ETL process** for integrating Point of Interests collected from web crawler built in Python
 
 ### Real-Time Reporting System and Live Dashboard
 
@@ -52,7 +52,7 @@
 
 > _Franchise (left) and Enterprise (right) User Interface_
 
--   Developed a **real-time dashboard** with **Socket.IO** to track operational performance and the live status of each franchise
+-   Developed a **real-time dashboard** with **Socket.IO** to track performance and the live status of each franchise
 -   Designed a franchise reporting system to simplify the reporting process
 -   Adopted **RWD** in the reporting system with the consideration of outdoor franchisees
 
