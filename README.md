@@ -10,14 +10,14 @@
 
 **Test Accounts**:
 
-###### default value in placeholder
-
 -   Enterprise
     -   Email: intelligeo.guest@gmail.com
     -   Password: guest2021
 -   Franchise
     -   Account: N002
     -   Password: N002
+
+💡 Tips ｜ default value in placeholder, able to login directly
 
 ## Contents
 
