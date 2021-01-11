@@ -21,7 +21,7 @@ _An integrated management platform provides market information to assist franchi
 -   [Technologies](#technologies)
 -   [Architecture](#architecture)
 -   [Database Design](#database-design)
--   [Features](#features)
+-   [Feature Highlights](#features)
 -   [Future Features](#future-features)
 -   [Contact](#contact)
 
@@ -90,9 +90,9 @@ _An integrated management platform provides market information to assist franchi
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/data_visualisation.gif)
 
-1. Relocate map centre based on the selected city and district, to provide quicker access
-2. Display existing franchise areas, to avoid overlaps
-3. Visualise customised POIs (Point of Interests; pxmart in this case) location and provide population stats within the drawn polygon, to assist in making business decision
+-   **Relocate map centre** based on the selected city and district, to provide quicker access
+-   Display existing franchise areas, to avoid overlaps
+-   **Visualise customised POIs** (Point of Interests; pxmart in this case) location and provide population stats within the drawn polygon, to assist in making business decision
 
 ### Real-Time Reporting System and Live Dashboard
 
