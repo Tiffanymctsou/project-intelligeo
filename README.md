@@ -1,10 +1,11 @@
 # Intelligeo
 
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/intelligeo_home.png)
 _An integrated management platform provides market information to assist franchise business owners in making effective decisions as well as enhance their connections with franchisees._
 
 ## Demo Link
 
-**Website URL**: https://intelligeo.online
+🌐 **Website URL**: https://intelligeo.online
 
 **Test Accounts**:
 
@@ -73,6 +74,7 @@ _An integrated management platform provides market information to assist franchi
 #### Others
 
 -   MVC Design Pattern
+-   RESTful APIs
 
 ## Architecture
 
@@ -82,15 +84,21 @@ _An integrated management platform provides market information to assist franchi
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/db_schema.png)
 
-## Features
+## Feature Highlights
 
 ### Data Visualisation
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/data_visualisation.gif)
 
+1. Relocate map centre based on the selected city and district, to provide quicker access
+2. Display existing franchise areas, to avoid overlaps
+3. Visualise customised POIs (Point of Interests; pxmart in this case) location and provide population stats within the drawn polygon, to assist in making business decision
+
 ### Real-Time Reporting System and Live Dashboard
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/live_dashboard.gif)
+
+> Franchise (left) and Enterprise (right) User Interface
 
 ## Future Features
 
