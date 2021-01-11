@@ -10,6 +10,8 @@
 
 **Test Accounts**:
 
+###### default value in placeholder
+
 -   Enterprise
     -   Email: intelligeo.guest@gmail.com
     -   Password: guest2021
@@ -95,8 +97,6 @@
 -   Display existing franchise areas, to avoid overlaps
 -   **Visualise customised POIs** (Point of Interests; pxmart in this case) location and provide population stats within the drawn polygon, to assist in making business decision
 
-&nbsp;
-
 ### Real-Time Reporting System and Live Dashboard
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/live_dashboard.gif)
@@ -111,6 +111,6 @@
 
 ## Contact
 
-👩‍💻 [Tiffany Tsou](https://github.com/Tiffanymctsou 'Tiffany Tsou')
+👩‍💻 ｜[Tiffany Tsou](https://github.com/Tiffanymctsou 'Tiffany Tsou')
 
-✉️ tiffany.mctsou@gmail.com
+✉️ ｜tiffany.mctsou@gmail.com
