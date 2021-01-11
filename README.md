@@ -90,6 +90,8 @@ _An integrated management platform provides market information to assist franchi
 
 ### Real-Time Reporting System and Live Dashboard
 
+![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/live_dashboard.gif)
+
 ## Future Features
 
 1. **Detection of franchise reported location** --- to notice the enterprise admin when the location a franchise reported is out of the agreed area.
