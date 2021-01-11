@@ -76,10 +76,16 @@ const getChart = async () => {
 		const currentMonth = moment.tz('Asia/Taipei').month() + 1;
 		const dateToday = moment.tz('Asia/Taipei').date();
 		for (let d = 1; d <= dateToday; d++) {
-			if (d < 10) {
+			if (currentMonth < 10 && d < 10) {
 				const day = `0${currentMonth}-0${d}`;
 				dates.push(day);
-			} else {
+			} else if (currentMonth < 10 && d >= 10) {
+				const day = `0${currentMonth}-${d}`;
+				dates.push(day);
+			} else if (currentMonth > 10 && d < 10) {
+				const day = `${currentMonth}-0${d}`;
+				dates.push(day);
+			} else if (currentMonth > 10 && d >= 10) {
 				const day = `${currentMonth}-${d}`;
 				dates.push(day);
 			}
