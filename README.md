@@ -101,16 +101,16 @@
 
 ![](https://github.com/Tiffanymctsou/Project_Assets/blob/master/Intelligeo/live_dashboard.gif)
 
-> Franchise (left) and Enterprise (right) User Interface
+> _Franchise (left) and Enterprise (right) User Interface_
 
 ## Future Features
 
-1. **Detection of franchise reported location** --- to notice the enterprise admin when the location a franchise reported is out of the agreed area.
-2. **Detection of the distance between franchises' area** --- to notice the enterprise admin when the newly selected area is too close to another (distance can be set by enterprise)
-3. **Integration of stock system** --- to simplify the process for franchise to place orders of ingredients; for enterprise to save time from sort all orders.
+1. **Detection of franchise reported location** - to notice the enterprise admin when the location a franchise reported is out of the agreed area.
+2. **Detection of the distance between franchises' area** - to notice the enterprise admin when the newly selected area is too close to another (distance can be set by enterprise)
+3. **Integration of stock system** - to simplify the process for franchise to place orders of ingredients; for enterprise to save time from sort all orders.
 
 ## Contact
 
-[Tiffany Tsou](https://github.com/Tiffanymctsou 'Tiffany Tsou')
+👩‍💻 [Tiffany Tsou](https://github.com/Tiffanymctsou 'Tiffany Tsou')
 
-tiffany.mctsou@gmail.com
+✉️ tiffany.mctsou@gmail.com
