@@ -135,7 +135,7 @@ const getFranchiseArea = async (req, res) => {
 			name: franchises[i].fullname,
 			area: []
 		};
-		const area = await alterCoordinates(JSON.parse(franchises[i].area));
+		const area = alterCoordinates(JSON.parse(franchises[i].area));
 		area.forEach((coordinate) => {
 			const latLng = {
 				lat: coordinate[1],
@@ -153,7 +153,7 @@ const getFranchiseArea = async (req, res) => {
 	});
 };
 
-async function alterCoordinates(coordinates) {
+function alterCoordinates(coordinates) {
 	coordinates.push(coordinates[0]);
 	return coordinates;
 }

@@ -24,25 +24,18 @@ const registerEnterprise = async (company, fullname, email) => {
 	}
 };
 const verifySetting = async (id, uid) => {
-	try {
-		await transaction();
+	const enterprise = await query('SELECT email, password FROM enterprise WHERE id = ?', [id]);
+	const enterpriseEmail = enterprise[0].email;
+	const enterprisePassword = enterprise[0].password;
 
-		const enterprise = await query('SELECT email, password FROM enterprise WHERE id = ?', [id]);
-		const enterpriseEmail = enterprise[0].email;
-		const enterprisePassword = enterprise[0].password;
-
-		if (enterprise.length == null) {
-			return { error: 'Account Does Not Exist!' };
-		} else if (!bcrypt.compareSync(enterpriseEmail, uid)) {
-			return { error: 'Incorrect uid!' };
-		} else if (enterprisePassword != null) {
-			return { error: 'You have already completed Account Setting!' };
-		} else if (enterprisePassword == null) {
-			return { msg: 'Account Setting Verified!' };
-		}
-	} catch (error) {
-		await rollback();
-		return { error };
+	if (enterprise.length == null) {
+		return { error: 'Account Does Not Exist!' };
+	} else if (!bcrypt.compareSync(enterpriseEmail, uid)) {
+		return { error: 'Incorrect uid!' };
+	} else if (enterprisePassword != null) {
+		return { error: 'You have already completed Account Setting!' };
+	} else if (enterprisePassword == null) {
+		return { msg: 'Account Setting Verified!' };
 	}
 };
 

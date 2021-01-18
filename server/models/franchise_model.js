@@ -6,25 +6,18 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment-timezone');
 
 const verifySetting = async (id, uid) => {
-	try {
-		await transaction();
+	const user = await query('SELECT email, password FROM user WHERE account = ?', [id]);
+	const userEmail = user[0].email;
+	const userPassword = user[0].password;
 
-		const user = await query('SELECT email, password FROM user WHERE account = ?', [id]);
-		const userEmail = user[0].email;
-		const userPassword = user[0].password;
-
-		if (user.length == null) {
-			return { error: 'Account Does Not Exist!' };
-		} else if (!bcrypt.compareSync(userEmail, uid)) {
-			return { error: 'Incorrect uid!' };
-		} else if (userPassword != null) {
-			return { error: 'You have already completed Account Setting!' };
-		} else if (userPassword == null) {
-			return { msg: 'Account Setting Verified!' };
-		}
-	} catch (error) {
-		await rollback();
-		return { error };
+	if (user.length == null) {
+		return { error: 'Account Does Not Exist!' };
+	} else if (!bcrypt.compareSync(userEmail, uid)) {
+		return { error: 'Incorrect uid!' };
+	} else if (userPassword != null) {
+		return { error: 'You have already completed Account Setting!' };
+	} else if (userPassword == null) {
+		return { msg: 'Account Setting Verified!' };
 	}
 };
 
@@ -67,46 +60,29 @@ const nativeLogin = async (account, password, expire) => {
 };
 
 const getLocationRecord = async (franchise_id) => {
-	try {
-		await transaction();
-		const sqlQuery = 'SELECT location FROM franchise WHERE franchise_id = ?';
-		const result = await query(sqlQuery, [franchise_id]);
-		const locationRecord = result[0];
-		await commit();
-		return locationRecord;
-	} catch (error) {
-		await rollback();
-		return { error };
-	}
+	const sqlQuery = 'SELECT location FROM franchise WHERE franchise_id = ?';
+	const result = await query(sqlQuery, [franchise_id]);
+	const locationRecord = result[0];
+
+	return locationRecord;
 };
+
 const getUnreported = async (franchise_id) => {
-	try {
-		await transaction();
-		const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
-		const sqlQuery = `SELECT id, open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time FROM open_log
+	const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
+	const sqlQuery = `SELECT id, open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time FROM open_log
         WHERE franchise_id = ? AND open_location <> ? AND report_date < ? AND open_status = ? AND report_status = ? ORDER BY report_date`;
-		const unreportedLog = await query(sqlQuery, [franchise_id, '-', today, 2, 0]);
-		await commit();
-		return unreportedLog;
-	} catch (error) {
-		await rollback();
-		return { error };
-	}
+	const unreportedLog = await query(sqlQuery, [franchise_id, '-', today, 2, 0]);
+
+	return unreportedLog;
 };
 
 const getOpen = async (franchise_id) => {
-	try {
-		await transaction();
-		const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
-		const sqlQuery = `SELECT id, open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time, open_status, report_status FROM open_log 
+	const today = moment.tz('Asia/Taipei').format('YYYY-MM-DD');
+	const sqlQuery = `SELECT id, open_location, DATE_FORMAT(report_date, '%Y-%m-%d') AS report_date, TIME_FORMAT(open_time, '%H:%i') AS open_time, open_status, report_status FROM open_log 
         WHERE franchise_id = ? AND report_date = ?;`;
-		const openLog = await query(sqlQuery, [franchise_id, today]);
-		await commit();
-		return openLog;
-	} catch (error) {
-		await rollback();
-		return { error };
-	}
+	const openLog = await query(sqlQuery, [franchise_id, today]);
+
+	return openLog;
 };
 
 const updateOpenStatus = async (franchise_id, location, status) => {

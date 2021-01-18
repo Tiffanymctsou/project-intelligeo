@@ -3,7 +3,8 @@ const domain = window.location.host;
 
 async function getAllFranchise() {
 	const franchises = await userRequest.get(`${protocol}//${domain}/admin/getFranchise`).then((response) => {
-		const data = response.data.result.franchises;
+		const data = response.data.franchises;
+		console.log(response.data.franchises);
 		return data;
 	});
 

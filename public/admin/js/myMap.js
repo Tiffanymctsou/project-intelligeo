@@ -83,7 +83,7 @@ function initMap() {
 			infoMarker.setMap(null);
 			if (poiMarkers.length != 0) {
 				poiMarkers.forEach((marker) => {
-					marker.setMap(null);
+					marker.marker.setMap(null);
 				});
 				document.querySelector('.results').innerHTML = '';
 			}
