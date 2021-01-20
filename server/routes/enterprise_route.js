@@ -6,7 +6,7 @@ router.route('/enterprise/register').post(wrapAsync(registerEnterprise));
 
 router.route('/enterprise/verifySetting').get(wrapAsync(verifySetting));
 
-router.route('/enterprise/setAccount').patch(wrapAsync(setAccount));
+router.route('/enterprise/account').patch(wrapAsync(setAccount));
 
 router.route('/enterprise/nativeLogin').post(wrapAsync(nativeLogin));
 

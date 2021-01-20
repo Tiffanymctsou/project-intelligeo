@@ -1,57 +1,57 @@
 const protocol = window.location.protocol;
 const domain = window.location.host;
 const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get('id');
-const uid = urlParams.get('uid');
+const id = urlParams.get("id");
+const uid = urlParams.get("uid");
 
 if (!id || !uid) {
-	window.location.replace('/');
+    window.location.replace("/");
 } else {
-	axios
-		.get(`${protocol}//${domain}/franchise/verifySetting`, {
-			params: { id: id, uid: uid }
-		})
-		.then((response) => {
-			// ADD ALERT TO SET PASSWORD
-			console.log(response);
-		})
-		.catch((err) => {
-			const error = err.response.data;
-			if (error.status == 403) {
-				window.location.href = '/franchise/login.html';
-			}
-		});
+    axios
+        .get(`${protocol}//${domain}/franchise/verifySetting`, {
+            params: { id: id, uid: uid },
+        })
+        .then((response) => {
+            // ADD ALERT TO SET PASSWORD
+            console.log(response);
+        })
+        .catch((err) => {
+            const error = err.response.data;
+            if (error.status == 403) {
+                window.location.href = "/franchise/login.html";
+            }
+        });
 }
 
 function setPassword() {
-	const password = document.getElementById('password').value;
-	const confirm_password = document.getElementById('confirm_password').value;
-	if (password == null || confirm_password == null) {
-		return;
-	} else if (password != confirm_password) {
-		tryAgain();
-		return;
-	} else {
-		const data = {
-			password: password
-		};
-		axios
-			.patch(`${protocol}//${domain}/franchise/setAccount`, data, {
-				params: { id: id }
-			})
-			.then((response) => {
-				if (response.status == 200) {
-					Swal.fire({
-						position: 'center',
-						icon: 'success',
-						title: '設置成功',
-						showConfirmButton: false,
-						timer: 1500
-					});
-					setTimeout(function () {
-						window.location.href = '/franchise/login.html';
-					}, 1500);
-				}
-			});
-	}
+    const password = document.getElementById("password").value;
+    const confirm_password = document.getElementById("confirm_password").value;
+    if (password == null || confirm_password == null) {
+        return;
+    } else if (password != confirm_password) {
+        tryAgain();
+        return;
+    } else {
+        const data = {
+            password: password,
+        };
+        axios
+            .patch(`${protocol}//${domain}/franchise/account`, data, {
+                params: { id: id },
+            })
+            .then((response) => {
+                if (response.status == 200) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "設置成功",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    setTimeout(function () {
+                        window.location.href = "/franchise/login.html";
+                    }, 1500);
+                }
+            });
+    }
 }
