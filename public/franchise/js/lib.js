@@ -41,6 +41,18 @@ function tryAgain() {
     });
     return;
 }
+
+function errorMsg() {
+    Swal.fire({
+        icon: "error",
+        title: "哎呀！",
+        text: "回報失敗！請再試一次！",
+        showConfirmButton: true,
+        confirmButtonText: "確認",
+    });
+    return;
+}
+
 // loading pages
 function domCreate(element) {
     return document.createElement(element);
@@ -178,6 +190,7 @@ function reportClose(e) {
         })
         .catch((err) => {
             console.log(err.response);
+            errorMsg();
         });
 }
 
@@ -198,7 +211,7 @@ function reportSales(e) {
         inputValidator: (value) => {
             if (!value) {
                 return "請輸入營業額！";
-            } else if (isNaN(parseInt(value))) {
+            } else if (!Number.isInteger(parseFloat(value)) || value <= 0 ) {
                 return "請輸入正確金額！";
             }
         },
@@ -223,6 +236,8 @@ function reportSales(e) {
                         error.data.msg == "jwt expired"
                     ) {
                         loginAgain();
+                    } else {
+                        errorMsg();
                     }
                 });
         },

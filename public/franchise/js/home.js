@@ -164,6 +164,7 @@ userRequest
             loginAgain();
         } else {
             console.log(error.message);
+            errorMsg();
         }
     });
 
