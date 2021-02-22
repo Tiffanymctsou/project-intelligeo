@@ -3,7 +3,7 @@ const protocol = window.location.protocol;
 const domain = window.location.host;
 
 // date
-const todayIs = new Date().toISOString().split('T')[0];
+const todayIs = new Date(+new Date() + 8 * 3600 * 1000).toISOString().split('T')[0];
 const statusDiv = document.querySelector('#franchise-status');
 const dateP = domCreate('p');
 dateP.id = 'today-date';
