@@ -64,8 +64,12 @@ const getChart = async () => {
     const dates = [];
     const amount = [];
     const currentMonth = moment.tz("Asia/Taipei").month() + 1;
-    const dateToday = moment.tz("Asia/Taipei").date();
-    for (let d = 1; d <= dateToday; d++) {
+    const endOfMonth = moment
+        .tz("Asia/Taipei")
+        .endOf("month")
+        .format("DD");
+    // const dateToday = moment.tz("Asia/Taipei").date();
+    for (let d = 1; d <= endOfMonth; d++) {
         if (currentMonth < 10 && d < 10) {
             const day = `0${currentMonth}-0${d}`;
             dates.push(day);
@@ -98,6 +102,8 @@ const getChart = async () => {
             amount.push(0);
         }
     });
+    console.log(amount);
+    console.log(dates);
     return { dates: dates, amount: amount };
 };
 

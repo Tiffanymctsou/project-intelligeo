@@ -13,7 +13,7 @@ const {
 const {
     getReportStatus,
     getOverviewData,
-    getChart,
+    getChart
 } = require("../controllers/dashboard_controller");
 const { verifyToken } = require("../controllers/enterprise_controller");
 
